@@ -1,39 +1,14 @@
-class MovableObject {  //wie eine Schablone 
-    x = 120;
-    y = 180;
-    img;
-    imageCache = {};
-    height = 150;
-    width = 100;
+class MovableObject extends DrawableObject {  //wie eine Schablone 
+
     speed = 0.15;
-    currentImage = 0;
     speedY = 0;
     acceleration = 2.5;
     energy = 100;
-
-
-
-
-    loadImage(path) {
-        this.img = new Image(); //this.img = document.getElementById('image') <img id="image">
-        this.img.src = path;
-    }
-
-
-    /**
-     * 
-     * @param {Array} arr  ['img/image1.png, 'img/image2.png', ...]
-     */
-    loadImages(arr) {
-        arr.forEach((path) => {
-            let img = new Image();
-            img.src = path;
-            this.imageCache[path] = img;
-        });
-    }
+    lastHit = 0;
+  
 
     playAnimation(images) {
-        let i = this.currentImage % this.IMAGES_WALKING.length; //Walk Animation
+        let i = this.currentImage % images.length; //Walk Animation
         let path = images[i];
         this.img = this.imageCache[path];
         this.currentImage++;
@@ -66,19 +41,9 @@ class MovableObject {  //wie eine Schablone
         this.speedY = 30;
     }
 
-    draw(ctx) {
-        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-    }
+    
 
-    drawFrame(ctx) {
-        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss) { //wird nur bei Character, Chicken und Endboss angezeigt
-            ctx.beginPath();
-            ctx.lineWidth = '5';
-            ctx.strokeStyle = 'blue';
-            ctx.rect(this.x, this.y, this.width, this.height);
-            ctx.stroke();
-        }
-    }
+  
 
     // character.isColliding(chicken)
     isColliding(mo) {
@@ -92,6 +57,8 @@ class MovableObject {  //wie eine Schablone
         this.energy -= 5;
         if(this.energy < 0){
             this.energy = 0;
+        } else {
+            this.lastHit = new Date().getTime();
         }
     }
 
@@ -99,5 +66,12 @@ class MovableObject {  //wie eine Schablone
         return this.energy == 0;
     }
 
+    isHurt() {
+        let timepassed = new Date().getTime() - this.lastHit; //difference in ms
+        timepassed = timepassed / 1000; // difference in seconds
+        return timepassed < 1;
+    }
+
+    
 
 }

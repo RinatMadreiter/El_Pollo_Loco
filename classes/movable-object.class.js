@@ -5,7 +5,7 @@ class MovableObject extends DrawableObject {  //wie eine Schablone
     acceleration = 2.5;
     energy = 100;
     lastHit = 0;
-  
+
 
     playAnimation(images) {
         let i = this.currentImage % images.length; //Walk Animation
@@ -29,21 +29,24 @@ class MovableObject extends DrawableObject {  //wie eine Schablone
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             }
-
         }, 40);
     }
 
     isAboveGround() {
-        return this.y < 170;
+        if (this instanceof ThrowableObject) { //ThrowableObject should always fall
+            return true
+        } else {
+            return this.y < 170;
+        }
     }
 
     jump() {
         this.speedY = 30;
     }
 
-    
 
-  
+
+
 
     // character.isColliding(chicken)
     isColliding(mo) {
@@ -52,10 +55,10 @@ class MovableObject extends DrawableObject {  //wie eine Schablone
             this.x < mo.x &&
             this.y < mo.y + mo.height;
     }
-    
+
     hit() {
         this.energy -= 5;
-        if(this.energy < 0){
+        if (this.energy < 0) {
             this.energy = 0;
         } else {
             this.lastHit = new Date().getTime();
@@ -72,6 +75,6 @@ class MovableObject extends DrawableObject {  //wie eine Schablone
         return timepassed < 1;
     }
 
-    
+
 
 }

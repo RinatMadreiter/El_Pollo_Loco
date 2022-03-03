@@ -5,6 +5,7 @@ class MovableObject extends DrawableObject {  //wie eine Schablone
     acceleration = 2.5;
     energy = 100;
     lastHit = 0;
+    otherDirection = false;
 
 
     playAnimation(images) {

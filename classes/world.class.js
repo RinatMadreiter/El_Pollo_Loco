@@ -14,10 +14,11 @@ class World {
     camera_x = 0;
     statusBar = new StatusBar();
     throwableObjects = [];
+    // otherDirection = false;
 
 
     constructor(canvas, keyboard) {
-        this.ctx = canvas.getContext('2d');
+        this.ctx = canvas.getContext('2d'); // ermöglich dem Canvas die Bilder im 2D Format hinzuzufügen, in der 'ctx' variable gespeichert
         this.canvas = canvas;
         this.keyboard = keyboard;
         this.draw();
@@ -93,11 +94,12 @@ class World {
             this.flipImage(mo);
         }
 
+        mo.draw(this.ctx);
+        
         if (mo.otherDirection) {
             this.flipImageBack(mo);
         }
 
-        mo.draw(this.ctx);
         mo.drawFrame(this.ctx);
 
     }

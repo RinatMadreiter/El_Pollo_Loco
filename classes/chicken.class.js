@@ -11,7 +11,7 @@ class Chicken extends MovableObject{
     currentImage = 0;
     
 constructor() {
-    super().loadImage('img/3.Secuencias_Enemy_básico/Versión_Gallinita (estas salen por orden de la gallina gigantona)/1.Ga_paso_derecho.png'); //super wird nur benötigt wenn man auf Methoden/funktionen zugreifen möchte
+    super().loadImage('img/3.Secuencias_Enemy_básico/Versión_Gallinita (estas salen por orden de la gallina gigantona)/1.Ga_paso_derecho.png'); //super wird nur benötigt wenn man auf Methoden/Funktionen zugreifen möchte
 
     this.x = 200 + Math.random() * 500; //zahl zwischen 200 und 700
     this.loadImages(this.IMAGES_WALKING);

@@ -19,7 +19,7 @@ class World {
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d'); // ermöglich dem Canvas die Bilder im 2D Format hinzuzufügen, in der 'ctx' variable gespeichert
-        this.canvas = canvas;
+        this.canvas = canvas; //in das globale Canvas von World.class wird der Parameter Canvas gespeichert, für die untere draw methode,
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
@@ -56,7 +56,7 @@ class World {
     }
 
     draw() {
-        this.ctx.clearRect(0, 0, canvas.width, canvas.height); //clear the canvas
+        this.ctx.clearRect(0, 0, canvas.width, canvas.height); // Löscht die derzeitigen Bilder im Canvas sodass sie nicht dupliziert angezeigt werden 
 
         this.ctx.translate(this.camera_x, 0);
 
@@ -75,44 +75,44 @@ class World {
 
         this.ctx.translate(-this.camera_x, 0);
 
-        // draw() wird immer wieder aufgerufen
-        self = this;
-        requestAnimationFrame(function () { //diese Funktion wird ausgeführt sobald alles in der draw Funktion ausgeführt wurde, asynchron später ausgeführt
-            self.draw();
+        //  draw() wird immer wieder aufgerufen
+        let self = this;
+        requestAnimationFrame(function () { //diese Funktion wird ausgeführt sobald alles in der draw Funktion gezeichtnet wurde, asynchron wiederholt es so oft wie die Grafikkarte es hergibt
+            self.draw(); //hier funktioniert this nicht mehr, deswegen erstellen wir eine Variable self (2 zeilen drüber), welcher wir this zuweisen
         });
     }
 
 
-    addObjectsToMap(objects) {
-        objects.forEach(o => {
-            this.addToMap(o);
+    addObjectsToMap(objects) { // ForEach schleife, welche 
+        objects.forEach(object => {
+            this.addToMap(object);
         });
     }
 
-    addToMap(mo) {
-        if (mo.otherDirection) {
-            this.flipImage(mo);
+    addToMap(movableObject) {
+        if (movableObject.otherDirection) {
+            this.flipImage(movableObject);
         }
 
-        mo.draw(this.ctx);
+        movableObject.draw(this.ctx);
         
-        if (mo.otherDirection) {
-            this.flipImageBack(mo);
+        if (movableObject.otherDirection) {
+            this.flipImageBack(movableObject);
         }
 
-        mo.drawFrame(this.ctx);
+        movableObject.drawFrame(this.ctx);
 
     }
 
-    flipImage(mo) {
+    flipImage(movableObject) {
         this.ctx.save();
-        this.ctx.translate(mo.width, 0);
+        this.ctx.translate(movableObject.width, 0);
         this.ctx.scale(-1, 1);
-        mo.x = mo.x * -1;
+        movableObject.x = movableObject.x * -1;
     }
 
-    flipImageBack(mo) {
-        mo.x = mo.x * -1;
+    flipImageBack(movableObject) {
+        movableObject.x = movableObject.x * -1;
         this.ctx.restore();
     }
 

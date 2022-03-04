@@ -8,8 +8,12 @@ class DrawableObject {
     width = 100;
 
 
+    /**
+     * load path of img
+     * @param {Pointer}  path of the imgs
+     */
     loadImage(path) {
-        this.img = new Image(); //this.img = document.getElementById('image') <img id="image">
+        this.img = new Image(); //this.img = document.getElementById('image') <img id="image"> /das Objekt Image ist bereits vorgegeben in JS
         this.img.src = path;
     }
 
@@ -36,7 +40,7 @@ class DrawableObject {
     }
 
     draw(ctx) {
-        ctx.drawImage(this.img, this.x, this.y, this.width, this.height); // eine vorgegebene Funktion welche Bilder auf das Canvas zeichnet
+        ctx.drawImage(this.img, this.x, this.y, this.width, this.height); // eine vorgegebene Funktion welche Bilder auf das Canvas zeichnet / circa 25 mal pro Sekunde ausgeführt
     }
 
 

@@ -2,6 +2,8 @@ class Character extends MovableObject { //"extends MovableObject" fügt der Clas
     height = 250;
     y = 80;
     speed = 10; //wir überschreiben speed damit Pepe weit laufen kann und nicht 0,etwas pixel
+    world;
+
     IMAGES_WALKING = [
         'img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-21.png',
         'img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-22.png',
@@ -10,7 +12,7 @@ class Character extends MovableObject { //"extends MovableObject" fügt der Clas
         'img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-25.png',
         'img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-26.png'
     ];
-
+    
     IMAGES_JUMPING = [
         'img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-31.png',
         'img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-32.png',
@@ -39,7 +41,6 @@ class Character extends MovableObject { //"extends MovableObject" fügt der Clas
         'img/2.Secuencias_Personaje-Pepe-corrección/4.Herido/H-42.png',
         'img/2.Secuencias_Personaje-Pepe-corrección/4.Herido/H-43.png'
     ];
-    world;
     walking_sound = new Audio('audio/walking.mp3');
 
 

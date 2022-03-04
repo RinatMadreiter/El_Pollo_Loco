@@ -6,11 +6,9 @@ const level1 = new Level(
         new Chicken(),
         new Endboss()
     ],
-
     [
         new Cloud()
     ],
-
     [
         new BackgroundObject('img/5.Fondo/Capas/3.Fondo3/2.png', -720),
         new BackgroundObject('img/5.Fondo/Capas/2.Fondo2/2.png', -720),
@@ -31,9 +29,6 @@ const level1 = new Level(
 
 
     ]
-
-
-
 );
 
 

@@ -50,11 +50,11 @@ class MovableObject extends DrawableObject {  //wie eine Schablone
 
 
     // character.isColliding(chicken)
-    isColliding(mo) {
-        return this.x + this.width > mo.x &&
-            this.y + this.height > mo.y &&
-            this.x < mo.x &&
-            this.y < mo.y + mo.height;
+    isColliding(movableObject) {
+        return this.x + this.width > movableObject.x &&
+            this.y + this.height > movableObject.y &&
+            this.x < movableObject.x &&
+            this.y < movableObject.y + movableObject.height;
     }
 
     hit() {

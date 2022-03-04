@@ -14,6 +14,7 @@ class World {
     camera_x = 0;
     hitpointsBar = new HitpointsBar();
     coinBar = new CoinBar();
+    // coins = new Coins();
     throwableObjects = [];
     // otherDirection = false;
 
@@ -69,7 +70,9 @@ class World {
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.throwableObjects);
-        
+        // debugger;
+        this.addObjectsToMap(this.level.coins);
+
         //--- Space for fixed Objects----
         this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.hitpointsBar);

@@ -12,7 +12,8 @@ class World {
     canvas;
     keyboard;
     camera_x = 0;
-    statusBar = new StatusBar();
+    hitpointsBar = new HitpointsBar();
+    coinBar = new CoinBar();
     throwableObjects = [];
     // otherDirection = false;
 
@@ -45,7 +46,7 @@ class World {
             if (this.character.isColliding(enemy)) {
                 // console.log('collision with Character', enemy);
                 this.character.hit();
-                this.statusBar.setPercentage(this.character.energy);
+                this.hitpointsBar.setPercentage(this.character.energy);
                 // console.log('energie is ', this.character.energy);
             }
         });
@@ -63,15 +64,17 @@ class World {
         this.addObjectsToMap(this.level.backgroundObjects);
 
 
-        //--- Space for fixed Objects----
-        this.ctx.translate(-this.camera_x, 0);
-        this.addToMap(this.statusBar);
-        this.ctx.translate(this.camera_x, 0);
-
+        
         this.addObjectsToMap(this.level.clouds);
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.throwableObjects);
+        
+        //--- Space for fixed Objects----
+        this.ctx.translate(-this.camera_x, 0);
+        this.addToMap(this.hitpointsBar);
+        this.addToMap(this.coinBar);
+        this.ctx.translate(this.camera_x, 0);
 
         this.ctx.translate(-this.camera_x, 0);
 

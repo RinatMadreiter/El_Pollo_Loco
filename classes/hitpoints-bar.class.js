@@ -1,6 +1,6 @@
-class StatusBar extends DrawableObject{
+class HitpointsBar extends DrawableObject{
 
-    IMAGES = [
+    IMAGES_HITPOINTSBAR = [
         'img/7.Marcadores/Barra/Marcador vida/verde/0_.png',
         'img/7.Marcadores/Barra/Marcador vida/verde/20_.png',
         'img/7.Marcadores/Barra/Marcador vida/verde/40_.png',
@@ -11,10 +11,9 @@ class StatusBar extends DrawableObject{
 
 percentage = 100;
 
-
     constructor() {
-        super();
-        this.loadImages(this.IMAGES);
+        super(); //benötigt um auf Methoden der höheren Classes zugreifen zu können
+        this.loadImages(this.IMAGES_HITPOINTSBAR);
         this.x = 30;
         this.y = 0;
         this.width = 200;
@@ -22,9 +21,10 @@ percentage = 100;
         this.setPercentage(100);
     }
 
+
     setPercentage(percentage) {
         this.percentage = percentage;
-        let path = this.IMAGES[this.resolveImageIndex()];
+        let path = this.IMAGES_HITPOINTSBAR[this.resolveImageIndex()];
         this.img = this.imageCache[path];   
     }
 

@@ -10,6 +10,10 @@ function init() {
     world = new World(canvas, keyboard);
 }
 
+
+/**
+ * change Keyboard-Variables to "true" if key is pressed
+ */
 window.addEventListener('keydown', (event) => {
     if(event.key == "ArrowRight"){
         keyboard.RIGHT = true;
@@ -39,6 +43,10 @@ window.addEventListener('keydown', (event) => {
 });
 
 
+
+/**
+ * change Keyboard-Variables to "false" if keyup
+ */
 window.addEventListener('keyup', (event) => {
     if(event.key == "ArrowRight"){
         keyboard.RIGHT = false;

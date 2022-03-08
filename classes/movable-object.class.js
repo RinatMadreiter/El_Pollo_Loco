@@ -37,7 +37,7 @@ class MovableObject extends DrawableObject {  //wie eine Schablone
         if (this instanceof ThrowableObject) { //ThrowableObject should always fall
             return true
         } else {
-            return this.y < 170;
+            return this.y < 265;
         }
     }
 

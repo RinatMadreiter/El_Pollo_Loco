@@ -1,6 +1,7 @@
 class Character extends MovableObject { //"extends MovableObject" fügt der Classe Character alle Eigenschaften von der Klasse Movable Object hinzu
-    height = 250;
-    y = 80;
+    height = 170;
+    width = 65;
+    y = 265;
     speed = 10; //wir überschreiben speed damit Pepe weit laufen kann und nicht 0,etwas pixel
     world;
 

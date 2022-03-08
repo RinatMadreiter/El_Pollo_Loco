@@ -7,14 +7,13 @@ class World {
     // clouds = level1.clouds;
     // enemies = level1.enemies;
 
-
     ctx;
     canvas;
     keyboard;
     camera_x = 0;
     hitpointsBar = new HitpointsBar();
     coinBar = new CoinBar();
-    // coins = new Coins();
+    // amountOfCoins = this.coinBar.amountOfCoins;
     throwableObjects = [];
     // otherDirection = false;
 
@@ -32,6 +31,7 @@ class World {
         setInterval(() => {
             this.checkCollisions();
             this.checkThrowObjects();
+            this.checkCoins();
         }, 200);
     }
 
@@ -53,6 +53,16 @@ class World {
         });
     }
 
+    checkCoins() {
+        this.level.coins.forEach((coin) => {
+            if(this.character.isColliding(coin)) {
+                this.coinBar.collectCoins();
+                this.coinBar.setAmountOfCoins(this.coinBar.amountOfCoins);
+                console.log(' Coin Collision Happened \n\n Amount of Coins is = ' + this.coinBar.amountOfCoins);
+            }
+        });
+    }
+
     setWorld() {
         this.character.world = this; //Hier wird dem Character Objekt/Klasse Zugriff auf alles von World gegeben
     }
@@ -61,11 +71,9 @@ class World {
         this.ctx.clearRect(0, 0, canvas.width, canvas.height); // Löscht die derzeitigen Bilder im Canvas sodass sie nicht dupliziert angezeigt werden 
 
         this.ctx.translate(this.camera_x, 0);
-
-        this.addObjectsToMap(this.level.backgroundObjects);
-
-
         
+        //-- Space for all movable Objects--
+        this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.level.clouds);
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
@@ -95,6 +103,7 @@ class World {
         });
     }
 
+    
     addToMap(movableObject) {
         if (movableObject.otherDirection) {
             this.flipImage(movableObject);
@@ -110,12 +119,14 @@ class World {
 
     }
 
+
     flipImage(movableObject) {
         this.ctx.save();
         this.ctx.translate(movableObject.width, 0);
         this.ctx.scale(-1, 1);
         movableObject.x = movableObject.x * -1;
     }
+
 
     flipImageBack(movableObject) {
         movableObject.x = movableObject.x * -1;

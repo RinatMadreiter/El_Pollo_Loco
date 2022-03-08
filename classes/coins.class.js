@@ -1,10 +1,10 @@
 class Coins extends DrawableObject {
 
 
-    height = 80;
-    width = 80;
+    height = 40;
+    width = 40;
     IMAGE_COIN = [
-        'img/8.Coin/Moneda1.png'
+        'img/8.Coin/Moneda2.png'
     ];
 
     constructor() {
@@ -13,8 +13,9 @@ class Coins extends DrawableObject {
         this.x = 250 + Math.random() * 1600; //zahl zwischen 200 und 700
         this.y = 100 + Math.random() * 100; //zahl zwischen 100 und 150
 
-
     }
+
+
 
 
 

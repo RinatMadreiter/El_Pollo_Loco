@@ -57,7 +57,7 @@ class World {
         this.level.coins.forEach((coin) => {
             if(this.character.isColliding(coin)) {
                 this.coinBar.collectCoins();
-                this.coinBar.setAmountOfCoins(this.coinBar.amountOfCoins);
+                this.coinBar.updateCoinBar(this.coinBar.amountOfCoins);
                 console.log(' Coin Collision Happened \n\n Amount of Coins is = ' + this.coinBar.amountOfCoins);
             }
         });

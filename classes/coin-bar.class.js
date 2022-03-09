@@ -19,36 +19,21 @@ class CoinBar extends DrawableObject {
         this.y = 0;
         this.width = 200;
         this.height = 60;
-        this.setAmountOfCoins(0);
+        this.updateCoinBar(0);
     }
+
 
     collectCoins() {
-        if (this.amountOfCoins < 10) {
             this.amountOfCoins += 1;
-        } 
     }
 
-    setAmountOfCoins(amountOfCoins) {
+
+    updateCoinBar(amountOfCoins) {
         this.amountOfCoins = amountOfCoins;
         let path = this.IMAGES_COINS[this.resolveImageIndex()];
         this.img = this.imageCache[path];
     }
 
-/*     resolveImageIndex(amountOfCoins) {
-        if (amountOfCoins == 0) {
-            return 0;
-        } else if (amountOfCoins == 1 || 2 || 3) {
-            return 1;
-        } else if (amountOfCoins == 4 || 5 ) {
-            return 2;
-        } else if (amountOfCoins == 6 || 7) {
-            return 3;
-        } else if (amountOfCoins == 8 || 9) {
-            return 4;
-        } else if (amountOfCoins == 10) {
-            return 5;
-        }
-    } */
 
     resolveImageIndex() {
         if (this.amountOfCoins == 0) {
@@ -61,7 +46,7 @@ class CoinBar extends DrawableObject {
             return 3;
         } else if (this.amountOfCoins == 8 || this.amountOfCoins == 9) {
             return 4;
-        } else if (this.amountOfCoins == 10) {
+        } else if (this.amountOfCoins >= 10) {
             return 5;
         }
     }

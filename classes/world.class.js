@@ -13,6 +13,7 @@ class World {
     camera_x = 0;
     hitpointsBar = new HitpointsBar();
     coinBar = new CoinBar();
+    bottleBar = new BottleBar();
     // amountOfCoins = this.coinBar.amountOfCoins;
     throwableObjects = [];
     // otherDirection = false;
@@ -54,9 +55,10 @@ class World {
     }
 
     checkCoins() {
-        this.level.coins.forEach((coin, index) => {
+        this.level.coins.forEach((coin, index) => { //es handelt sich hierbei um eine Anonyme funktion mit 2 Parametern
             if(this.character.isColliding(coin)) {
                 this.coinBar.collectCoins();
+                console.log('index is ', index);
                 this.level.coins.splice(index, 1);
                 this.coinBar.updateCoinBar(this.coinBar.amountOfCoins);
                 console.log(' Coin Collision Happened \n\n Amount of Coins is = ' + this.coinBar.amountOfCoins);
@@ -85,6 +87,7 @@ class World {
         //--- Space for fixed Objects----
         this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.hitpointsBar);
+        this.addToMap(this.bottleBar);
         this.addToMap(this.coinBar);
         this.ctx.translate(this.camera_x, 0);
 

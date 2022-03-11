@@ -1,4 +1,6 @@
 class HitpointsBar extends DrawableObject{
+    
+    percentage = 100;
 
     IMAGES_HITPOINTSBAR = [
         'img/7.Marcadores/Barra/Marcador vida/verde/0_.png',
@@ -9,7 +11,6 @@ class HitpointsBar extends DrawableObject{
         'img/7.Marcadores/Barra/Marcador vida/verde/100_.png'
     ]
 
-percentage = 100;
 
     constructor() {
         super(); //benötigt um auf Methoden der höheren Classes zugreifen zu können

@@ -1,4 +1,6 @@
 class CoinBar extends DrawableObject {
+    
+    amountOfCoins = 0;
 
     IMAGES_COINS = [
         'img/7.Marcadores/Barra/Marcador_moneda/Verde/0.png',
@@ -9,13 +11,11 @@ class CoinBar extends DrawableObject {
         'img/7.Marcadores/Barra/Marcador_moneda/Verde/100.png'
     ]
 
-    amountOfCoins = 0;
-
 
     constructor() {
         super(); //benötigt um auf Methoden der höheren Classes zugreifen zu können
         this.loadImages(this.IMAGES_COINS);
-        this.x = 460;
+        this.x = 490;
         this.y = 0;
         this.width = 200;
         this.height = 60;

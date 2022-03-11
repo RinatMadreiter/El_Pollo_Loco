@@ -32,7 +32,7 @@ class World {
             this.checkCollisions();
             this.checkThrowObjects();
             this.checkCoins();
-        }, 200);
+        }, 70);//200
     }
 
     checkThrowObjects() {

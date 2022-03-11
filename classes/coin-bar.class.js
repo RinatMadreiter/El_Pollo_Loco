@@ -20,7 +20,6 @@ class CoinBar extends DrawableObject {
         this.width = 200;
         this.height = 60;
         this.updateCoinBar(0);
-        console.trace();
     }
 
 

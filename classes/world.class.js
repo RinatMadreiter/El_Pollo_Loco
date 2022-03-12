@@ -38,7 +38,7 @@ class World {
 
     checkThrowObjects() {
         if(this.keyboard.D) {
-            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
+            let bottle = new ThrowableObject(this.character.x + 50, this.character.y + 35);
             this.throwableObjects.push(bottle);
         }
     }
@@ -58,10 +58,10 @@ class World {
         this.level.coins.forEach((coin, index) => { //es handelt sich hierbei um eine Anonyme funktion mit 2 Parametern
             if(this.character.isColliding(coin)) {
                 this.coinBar.collectCoins();
-                console.log('index is ', index);
+                // console.log('index is ', index);
                 this.level.coins.splice(index, 1);
                 this.coinBar.updateCoinBar(this.coinBar.amountOfCoins);
-                console.log(' Coin Collision Happened \n\n Amount of Coins is = ' + this.coinBar.amountOfCoins);
+                // console.log(' Coin Collision Happened \n\n Amount of Coins is = ' + this.coinBar.amountOfCoins);
             }
         });
     }

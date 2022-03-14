@@ -1,5 +1,4 @@
 class World {
-    // edge = -720;
     character = new Character(); // bei neuen Variablen in Klassen braucht man auch kein "Let" davor wie sonst
 
     level = level1;
@@ -14,9 +13,10 @@ class World {
     hitpointsBar = new HitpointsBar();
     coinBar = new CoinBar();
     bottleBar = new BottleBar();
-    // amountOfCoins = this.coinBar.amountOfCoins;
-    throwableObjects = [];
-    // otherDirection = false;
+    bottle = new ThrowableObject(this.character.x + 50, this.character.y + 35);
+    throwableBottlesArray = [];
+    amountOfBottlesToThrow = 0;
+
 
 
     constructor(canvas, keyboard) {
@@ -28,20 +28,40 @@ class World {
         this.run();
     }
 
+
     run() {
         setInterval(() => {
             this.checkCollisions();
-            this.checkThrowObjects();
             this.checkCoins();
-        }, 70);//200
+            this.checkBottles();
+        }, 70); // 200
+        setInterval(() => this.checkThrowObjects(), 200);
     }
 
+
     checkThrowObjects() {
-        if(this.keyboard.D) {
+        if (this.keyboard.D && this.amountOfBottlesToThrow > 0) {
             let bottle = new ThrowableObject(this.character.x + 50, this.character.y + 35);
-            this.throwableObjects.push(bottle);
+            this.throwableBottlesArray.push(bottle);
+            this.amountOfBottlesToThrow -= 1;
+            this.bottleBar.amountOfBottles -= 1;
+            setTimeout(() => this.throwableBottlesArray.splice(0, 1), 2000);
+            this.bottleBar.updateBottleBar(this.bottleBar.amountOfBottles);
         }
     }
+
+
+    checkBottles() {
+        this.level.bottles.forEach((bottle, index) => { //es handelt sich hierbei um eine Anonyme funktion mit 2 Parametern
+            if (this.character.isColliding(bottle)) {
+                this.bottleBar.collectBottles(); // increase AmountOfBottles for BottleBar +=1
+                this.level.bottles.splice(index, 1); //remove bottle from canvas
+                this.bottleBar.updateBottleBar(this.bottleBar.amountOfBottles);
+                this.amountOfBottlesToThrow += 1;
+            }
+        });
+    }
+
 
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
@@ -54,9 +74,10 @@ class World {
         });
     }
 
+
     checkCoins() {
         this.level.coins.forEach((coin, index) => { //es handelt sich hierbei um eine Anonyme funktion mit 2 Parametern
-            if(this.character.isColliding(coin)) {
+            if (this.character.isColliding(coin)) {
                 this.coinBar.collectCoins();
                 // console.log('index is ', index);
                 this.level.coins.splice(index, 1);
@@ -66,23 +87,25 @@ class World {
         });
     }
 
+
     setWorld() {
         this.character.world = this; //Hier wird dem Character Objekt/Klasse Zugriff auf alles von World gegeben
     }
+
 
     draw() {
         this.ctx.clearRect(0, 0, canvas.width, canvas.height); // Löscht die derzeitigen Bilder im Canvas sodass sie nicht dupliziert angezeigt werden 
 
         this.ctx.translate(this.camera_x, 0);
-        
+
         //-- Space for all movable Objects--
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.level.clouds);
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
-        this.addObjectsToMap(this.throwableObjects);
-        // debugger;
+        this.addObjectsToMap(this.throwableBottlesArray);
         this.addObjectsToMap(this.level.coins);
+        this.addObjectsToMap(this.level.bottles); // die zufällig generierten Flaschen auf dem weg
 
         //--- Space for fixed Objects----
         this.ctx.translate(-this.camera_x, 0);
@@ -107,14 +130,14 @@ class World {
         });
     }
 
-    
+
     addToMap(movableObject) {
         if (movableObject.otherDirection) {
             this.flipImage(movableObject);
         }
 
         movableObject.draw(this.ctx);
-        
+
         if (movableObject.otherDirection) {
             this.flipImageBack(movableObject);
         }

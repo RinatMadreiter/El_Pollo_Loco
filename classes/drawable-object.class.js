@@ -18,7 +18,7 @@ class DrawableObject {
     }
 
     drawFrame(ctx) {
-        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof Coins) { //wird nur bei Character, Chicken und Endboss angezeigt
+        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof Coin) { //wird nur bei Character, Chicken und Endboss angezeigt
             ctx.beginPath();
             ctx.lineWidth = '5';
             ctx.strokeStyle = 'blue';

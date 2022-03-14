@@ -21,6 +21,12 @@ class BottleBar extends DrawableObject {
         this.updateBottleBar(0);
     }
 
+    
+    collectBottles() {
+        this.amountOfBottles += 1;
+    }
+
+
     updateBottleBar(amountOfBottles) {
         this.amountOfBottles = amountOfBottles;
         let path = this.IMAGES_BOTTLES[this.resolveBottleIndex()];

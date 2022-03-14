@@ -1,4 +1,4 @@
-class Coins extends DrawableObject {
+class Coin extends DrawableObject {
 
 
     height = 40;
@@ -14,9 +14,6 @@ class Coins extends DrawableObject {
         this.y = 100 + Math.random() * 100; //zahl zwischen 100 und 150
 
     }
-
-
-
 
 
 }

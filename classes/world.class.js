@@ -45,7 +45,7 @@ class World {
             this.throwableBottlesArray.push(bottle);
             this.amountOfBottlesToThrow -= 1;
             this.bottleBar.amountOfBottles -= 1;
-            setTimeout(() => this.throwableBottlesArray.splice(0, 1), 2000);
+            setTimeout(() => this.throwableBottlesArray.splice(0, 1), 1300);
             this.bottleBar.updateBottleBar(this.bottleBar.amountOfBottles);
         }
     }

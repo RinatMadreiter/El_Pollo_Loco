@@ -3,6 +3,8 @@ class Bottle extends DrawableObject {
 
     height = 70;
     width = 15;
+    static lastBottleXPos = 250;
+
     IMAGE_BOTTLE = [
         'img/6.botella/1.Marcador.png'
     ];
@@ -10,8 +12,10 @@ class Bottle extends DrawableObject {
     constructor() {
         super().loadImage(this.IMAGE_BOTTLE); //super wird nur benötigt wenn man auf Methoden/Funktionen zugreifen möchte
 
-        this.x = 250 + Math.random() * 1600; //zahl zwischen 200 und 700
-        this.y = 100 + Math.random() * 100; //zahl zwischen 100 und 150
+        this.x = Bottle.lastBottleXPos + (100 + Math.random() * 380);
+        Bottle.lastBottleXPos = this.x;
+        
+        this.y = 340; /*  200 + Math.random() * 100;  *///zahl zwischen 100 und 150
 
     }
 

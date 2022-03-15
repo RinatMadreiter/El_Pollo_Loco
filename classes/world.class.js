@@ -13,7 +13,7 @@ class World {
     hitpointsBar = new HitpointsBar();
     coinBar = new CoinBar();
     bottleBar = new BottleBar();
-    bottle = new ThrowableObject(this.character.x + 50, this.character.y + 35);
+    // bottle = new ThrowableObject(this.character.x + 50, this.character.y + 35);
     throwableBottlesArray = [];
     amountOfBottlesToThrow = 0;
 
@@ -34,6 +34,7 @@ class World {
             this.checkCollisions();
             this.checkCoins();
             this.checkBottles();
+            this.checkHitChicken();
         }, 70); // 200
         setInterval(() => this.checkThrowObjects(), 200);
     }
@@ -45,6 +46,7 @@ class World {
             this.throwableBottlesArray.push(bottle);
             this.amountOfBottlesToThrow -= 1;
             this.bottleBar.amountOfBottles -= 1;
+            // this.checkHitChicken();
             setTimeout(() => this.throwableBottlesArray.splice(0, 1), 1300);
             this.bottleBar.updateBottleBar(this.bottleBar.amountOfBottles);
         }
@@ -61,6 +63,19 @@ class World {
             }
         });
     }
+
+    checkHitChicken() {
+        this.level.enemies.forEach((enemy) => {
+            this.throwableBottlesArray.forEach(bottle => {
+                if (bottle.isColliding(enemy)) {
+                    enemy.hit();
+                    console.log('chicken succesfully hit with bottle');
+                }
+            });
+        });
+    }
+
+    
 
 
     checkCollisions() {

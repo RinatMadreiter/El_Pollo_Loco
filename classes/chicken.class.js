@@ -44,7 +44,7 @@ class Chicken extends MovableObject {
     }
 
 
-    //vom liveCall
+    //vom liveCall to implement
     animate() {
         let moveInterval = setInterval(() => {
             if (!this.isDead()) {
@@ -63,12 +63,11 @@ class Chicken extends MovableObject {
                     clearInterval(playInterval);
                 }, this.IMAGE_DEAD.length * this.intervalAnimation)
             } else {
+                //ToDo
                 this.playAnimation(this.IMAGES_WALKING);
             }
-        }, this.intervalAnimation);
+        }, this.intervalAnimation); //200ms
     }
-
-
 
 
 

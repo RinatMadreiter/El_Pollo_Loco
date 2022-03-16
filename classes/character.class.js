@@ -4,6 +4,7 @@ class Character extends MovableObject { //"extends MovableObject" fügt der Clas
     y = 265;
     speed = 10; //wir überschreiben speed damit Pepe weit laufen kann und nicht 0,etwas pixel
     world;
+    chickenDying = false;
 
     IMAGES_WALKING = [
         'img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-21.png',

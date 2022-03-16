@@ -67,8 +67,10 @@ class World {
     checkHitChicken() {
         this.level.enemies.forEach((enemy) => {
             this.throwableBottlesArray.forEach(bottle => {
-                if (bottle.isColliding(enemy)) {
+                if (bottle.isColliding(enemy) && !this.character.chickenDying) {
                     enemy.hit();
+                    this.character.chickenDying = true;
+                    setTimeout(() => this.character.chickenDying = false, 500);
                     console.log('chicken succesfully hit with bottle');
                 }
             });

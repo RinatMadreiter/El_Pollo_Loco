@@ -4,6 +4,7 @@ class Chicken extends MovableObject {
     y = 345;
     energy = 4;
     intervalAnimation = 200;
+  
 
     IMAGES_WALKING = [
         'img/3.Secuencias_Enemy_básico/Versión_Gallinita (estas salen por orden de la gallina gigantona)/1.Ga_paso_derecho.png',
@@ -27,7 +28,7 @@ class Chicken extends MovableObject {
     }
 
 
-    animate() {
+/*     animate() {
         if (this.isDead()) {
             this.playAnimation(this.IMAGE_DEAD);
         } else {
@@ -41,7 +42,7 @@ class Chicken extends MovableObject {
                 this.playAnimation(this.IMAGES_WALKING);
             }, 200);
         }
-    }
+    } */
 
 
     //vom liveCall to implement
@@ -56,11 +57,11 @@ class Chicken extends MovableObject {
             }
         }, 17);
 
-        let playInterval = setInterval(() => {
+        let playAnimationInterval = setInterval(() => {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGE_DEAD);
                 setTimeout(() => {
-                    clearInterval(playInterval);
+                    clearInterval(playAnimationInterval);
                 }, this.IMAGE_DEAD.length * this.intervalAnimation)
             } else {
                 //ToDo

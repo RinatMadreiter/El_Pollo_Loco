@@ -6,6 +6,7 @@ class MovableObject extends DrawableObject {  //wie eine Schablone
     energy = 100;
     lastHit = 0;
     otherDirection = false;
+    
 
 
     playAnimation(images) {
@@ -15,6 +16,7 @@ class MovableObject extends DrawableObject {  //wie eine Schablone
         this.currentImage++;
     }
 
+
     moveRight() {
         this.x += this.speed;
     }
@@ -23,6 +25,7 @@ class MovableObject extends DrawableObject {  //wie eine Schablone
     moveLeft() {
         this.x -= this.speed;
     }
+
 
     applyGravity() {
         setInterval(() => {
@@ -46,9 +49,6 @@ class MovableObject extends DrawableObject {  //wie eine Schablone
     }
 
 
-
-
-
     // character.isColliding(chicken)
     isColliding(movableObject) {
         return this.x + this.width > movableObject.x &&
@@ -56,6 +56,7 @@ class MovableObject extends DrawableObject {  //wie eine Schablone
             this.x - 60 < movableObject.x &&
             this.y < movableObject.y + movableObject.height;
     }
+
 
     hit() {
         this.energy -= 5;
@@ -66,15 +67,19 @@ class MovableObject extends DrawableObject {  //wie eine Schablone
         }
     }
 
+
     isDead() {
         return this.energy == 0;
     }
+
 
     isHurt() {
         let timepassed = new Date().getTime() - this.lastHit; //difference in ms
         timepassed = timepassed / 1000; // difference in seconds
         return timepassed < 1;
     }
+
+  
 
 
 

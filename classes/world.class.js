@@ -15,6 +15,7 @@ class World {
     bottleBar = new BottleBar();
     throwableBottlesArray = [];
     amountOfBottlesToThrow = 0;
+    endboss = this.level.endboss[0];
 
 
 
@@ -34,6 +35,7 @@ class World {
             this.checkCoins();
             this.checkBottles();
             this.checkHitChicken();
+            this.checkHitEndboss();
         }, 70); // 200
         setInterval(() => this.checkThrowObjects(), 200);
     }
@@ -63,6 +65,7 @@ class World {
         });
     }
 
+
     checkHitChicken() {
         this.level.enemies.forEach((enemy, index) => {
             this.throwableBottlesArray.forEach(bottle => {
@@ -78,6 +81,16 @@ class World {
     }
 
 
+    checkHitEndboss() {
+        this.throwableBottlesArray.forEach((bottle)=> {
+            if (bottle.isColliding(this.endboss) && !this.endboss.endbossGettingHit) {
+                this.endboss.hit();
+                this.endboss.endbossGettingHit = true;
+                setTimeout(() => this.endboss.endbossGettingHit = false, 300);
+                console.log('endboss successfully hit :)');
+            }
+        });
+    }
 
 
     checkCollisions() {
@@ -123,6 +136,7 @@ class World {
         this.addObjectsToMap(this.throwableBottlesArray);
         this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.level.bottles); // die zufällig generierten Flaschen auf dem weg
+        this.addObjectsToMap(this.level.endboss);
 
         //--- Space for fixed Objects----
         this.ctx.translate(-this.camera_x, 0);
@@ -133,7 +147,7 @@ class World {
 
         this.ctx.translate(-this.camera_x, 0);
 
-        //  draw() wird immer wieder aufgerufen
+        // mit Hilfe von requestAnimationFrame wird draw() immer wieder aufgerufen (abhängig von der Grafikkarte)
         let self = this;
         requestAnimationFrame(function () { //diese Funktion wird ausgeführt sobald alles in der draw Funktion gezeichtnet wurde, asynchron wiederholt es so oft wie die Grafikkarte es hergibt
             self.draw(); //hier funktioniert this nicht mehr, deswegen erstellen wir eine Variable self (2 zeilen drüber), welcher wir this zuweisen
@@ -160,7 +174,6 @@ class World {
         }
 
         movableObject.drawFrame(this.ctx);
-
     }
 
 

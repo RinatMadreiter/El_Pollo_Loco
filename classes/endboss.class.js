@@ -5,6 +5,7 @@ class Endboss extends MovableObject {
     y = 50;
     hadContactWithEndboss = false;
     energy = 50;
+    endbossGettingHit = false;
 
     IMAGES_ALERT = [
         'img/4.Endboss/2.attacking_endboss/1.Alerta/G5.png',

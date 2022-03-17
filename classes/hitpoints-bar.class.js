@@ -3,12 +3,12 @@ class HitpointsBar extends DrawableObject{
     percentage = 100;
 
     IMAGES_HITPOINTSBAR = [
-        'img/7.Marcadores/Barra/Marcador vida/verde/0_.png',
-        'img/7.Marcadores/Barra/Marcador vida/verde/20_.png',
-        'img/7.Marcadores/Barra/Marcador vida/verde/40_.png',
-        'img/7.Marcadores/Barra/Marcador vida/verde/60_.png',
-        'img/7.Marcadores/Barra/Marcador vida/verde/80_.png',
-        'img/7.Marcadores/Barra/Marcador vida/verde/100_.png'
+        'img/7.Marcadores/Barra/Marcadorvida/verde/0.png',
+        'img/7.Marcadores/Barra/Marcadorvida/verde/20.png',
+        'img/7.Marcadores/Barra/Marcadorvida/verde/40.png',
+        'img/7.Marcadores/Barra/Marcadorvida/verde/60.png',
+        'img/7.Marcadores/Barra/Marcadorvida/verde/80.png',
+        'img/7.Marcadores/Barra/Marcadorvida/verde/100.png'
     ]
 
 

@@ -4,7 +4,7 @@ class Endboss extends MovableObject {
     width = 250;
     y = 50;
     hadContactWithEndboss = false;
-    energy = 50;
+    energy = 100;
     endbossGettingHit = false;
 
     IMAGES_ALERT = [

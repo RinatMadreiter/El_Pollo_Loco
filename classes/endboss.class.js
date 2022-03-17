@@ -4,6 +4,7 @@ class Endboss extends MovableObject {
     width = 250;
     y = 50;
     hadContactWithEndboss = false;
+    energy = 50;
 
     IMAGES_ALERT = [
         'img/4.Endboss/2.attacking_endboss/1.Alerta/G5.png',
@@ -59,7 +60,7 @@ class Endboss extends MovableObject {
     animate() {
         let i = 0;
 
-        setTimeout(() => {
+        // setTimeout(() => {
 
             setInterval(() => {
 
@@ -71,13 +72,13 @@ class Endboss extends MovableObject {
 
                 i++;
 
-                /*             if (!hadContactWithEndboss) {
-                                i = 0;
-                                hadContactWithEndboss = true;
-                            } */
+                if (world.character.x > 2000 && !this.hadContactWithEndboss) {
+                    i = 0;
+                    this.hadContactWithEndboss = true;
+                }
             }, 200);
 
-        }, 6000);
+        // }, 6000); // jetzt noch auf 6 Sekunden weil die zweite If Abfrage noch nicht funktioniert
     }
 
 }

@@ -7,6 +7,7 @@ class Endboss extends MovableObject {
     energy = 100;
     endbossGettingHit = false;
 
+
     IMAGES_ALERT = [
         'img/4.Endboss/2.attacking_endboss/1.Alerta/G5.png',
         'img/4.Endboss/2.attacking_endboss/1.Alerta/G6.png',
@@ -49,37 +50,48 @@ class Endboss extends MovableObject {
     ];
 
     constructor() {
-        super().loadImage(this.IMAGES_ALERT[0]); //super wird nur benötigt wenn man auf Methoden/funktionen zugreifen möchte
+        super().loadImage(this.IMAGES_ALERT[0]);  //super wird nur benötigt wenn man auf Methoden/funktionen zugreifen möchte
         this.loadImages(this.IMAGES_ARRIVING);
         this.loadImages(this.IMAGES_ALERT);
-        this.x = 2500;
+        this.loadImages(this.IMAGES_ATTACKING);
+        this.loadImages(this.IMAGES_HURT);
+        this.loadImages(this.IMAGES_DEAD);
+        this.speed = 15;
+        this.x = 2800;
         this.animate();
-
     }
 
 
     animate() {
+
         let i = 0;
+        setInterval(() => {
 
-        // setTimeout(() => {
+            if (i < 10) {
+                this.playAnimation(this.IMAGES_ARRIVING);
+                this.moveLeft();
 
-            setInterval(() => {
+            } else if (this.isHurt()) { // TODO
+                this.playAnimation(this.IMAGES_HURT); // TODO
+                setTimeout(() => this.moveRight(), 500);
 
-                if (i < 10) {
-                    this.playAnimation(this.IMAGES_ARRIVING);
-                } else {
-                    this.playAnimation(this.IMAGES_ALERT);
-                }
+            } else if (this.isDead()) {
+                this.playAnimation(this.IMAGES_DEAD);
+            } else {
+                this.playAnimation(this.IMAGES_ALERT);
+            }
 
-                i++;
+            i++;
 
-                if (world.character.x > 2000 && !this.hadContactWithEndboss) {
-                    i = 0;
-                    this.hadContactWithEndboss = true;
-                }
-            }, 200);
+            if (world.character.x > 2000 && !this.hadContactWithEndboss) {
+                i = 0;
+                this.hadContactWithEndboss = true;
+            }
 
-        // }, 6000); // jetzt noch auf 6 Sekunden weil die zweite If Abfrage noch nicht funktioniert
+        }, 200);
+
+
     }
+
 
 }

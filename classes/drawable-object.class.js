@@ -40,7 +40,12 @@ class DrawableObject {
     }
 
     draw(ctx) {
-        ctx.drawImage(this.img, this.x, this.y, this.width, this.height); // eine vorgegebene Funktion welche Bilder auf das Canvas zeichnet / circa 25 mal pro Sekunde ausgeführt
+        // try {
+            ctx.drawImage(this.img, this.x, this.y, this.width, this.height); // eine vorgegebene Funktion welche Bilder auf das Canvas zeichnet / circa 25 mal pro Sekunde ausgeführt
+/*         } catch (error) {
+        console.warn('Error loading Img ', error);
+        console.log('could not load image ', this.img.src);  
+        } */
     }
 
 

@@ -12,7 +12,7 @@ class Bottle extends DrawableObject {
     constructor() {
         super().loadImage(this.IMAGE_BOTTLE); //super wird nur benötigt wenn man auf Methoden/Funktionen zugreifen möchte
 
-        this.x = Bottle.lastBottleXPos + (100 + Math.random() * 380); //100 + Math.random() * 380
+        this.x = Bottle.lastBottleXPos + (100 + Math.random() * 10); //100 + Math.random() * 380
         Bottle.lastBottleXPos = this.x;
         
         this.y = 340; /*  200 + Math.random() * 100;  *///zahl zwischen 100 und 150

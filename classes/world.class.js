@@ -83,7 +83,7 @@ class World {
 
 
     checkHitEndboss() {
-        this.throwableBottlesArray.forEach((bottle)=> {
+        this.throwableBottlesArray.forEach((bottle) => {
             if (bottle.isColliding(this.endboss) && !this.endboss.endbossGettingHit) {
                 this.endboss.hit();
                 this.endboss.endbossGettingHit = true;
@@ -96,6 +96,18 @@ class World {
 
 
     checkCollisions() {
+        this.checkChickenCollisions();
+        this.checkEndbossCollisions();
+    }
+
+    checkEndbossCollisions() {
+        if (this.character.isColliding(this.endboss)) {
+            this.character.hit();
+            this.hitpointsBar.setPercentage(this.character.energy);
+        }
+    }
+
+    checkChickenCollisions() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
                 // console.log('collision with Character', enemy);
@@ -145,7 +157,9 @@ class World {
         this.addToMap(this.hitpointsBar);
         this.addToMap(this.bottleBar);
         this.addToMap(this.coinBar);
-        this.addToMap(this.endbossBar);
+        // this.addToMap(this.endbossBar);
+        this.drawBarIfNearEndboss();
+
         this.ctx.translate(this.camera_x, 0);
 
         this.ctx.translate(-this.camera_x, 0);
@@ -191,6 +205,13 @@ class World {
     flipImageBack(movableObject) {
         movableObject.x = movableObject.x * -1;
         this.ctx.restore();
+    }
+
+
+    drawBarIfNearEndboss() {
+        if (this.character.x > 2000 && this.endboss.hadContactWithEndboss) {
+            this.addToMap(this.endbossBar);
+        }
     }
 
 }

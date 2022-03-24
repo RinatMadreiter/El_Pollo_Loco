@@ -3,12 +3,12 @@ class EndbossBar extends DrawableObject {
     percentage = 100;
 
     IMAGES_HITPOINTSBAR = [
-        'img/7.Marcadores/Barra/Marcadorvida/Naranja/0.png',
-        'img/7.Marcadores/Barra/Marcadorvida/Naranja/20.png',
-        'img/7.Marcadores/Barra/Marcadorvida/Naranja/40.png',
-        'img/7.Marcadores/Barra/Marcadorvida/Naranja/60.png',
-        'img/7.Marcadores/Barra/Marcadorvida/Naranja/80.png',
-        'img/7.Marcadores/Barra/Marcadorvida/Naranja/100.png'
+        'img/7.Marcadores/Barra/MarcadorVida/Naranja/0.png',
+        'img/7.Marcadores/Barra/MarcadorVida/Naranja/20.png',
+        'img/7.Marcadores/Barra/MarcadorVida/Naranja/40.png',
+        'img/7.Marcadores/Barra/MarcadorVida/Naranja/60.png',
+        'img/7.Marcadores/Barra/MarcadorVida/Naranja/80.png',
+        'img/7.Marcadores/Barra/MarcadorVida/Naranja/100.png'
     ]
 
     constructor() {

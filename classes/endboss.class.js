@@ -5,7 +5,8 @@ class Endboss extends MovableObject {
     y = 50;
     hadContactWithEndboss = false;
     energy = 100;
-    endbossHurt = false;
+    speed = 15;
+    x = 2800;
 
 
     IMAGES_ALERT = [
@@ -62,8 +63,7 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_ATTACKING);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
-        this.speed = 15;
-        this.x = 2800;
+
         this.animate();
     }
 
@@ -80,20 +80,22 @@ class Endboss extends MovableObject {
 
             if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT); // TODO
-                setTimeout(() => { this.moveRight();
-                this.endbossHurt = true;
+                setTimeout(() => {
+                    this.moveRight();
+                    this.endbossHurt = true;
                 }, 500);
 
             }
 
-            if (this.endbossHurt) {
+            if (this.energy == 10 && !this.isDead() && !this.isHurt()) {
                 this.playAnimation(this.IMAGES_ATTACKING);
-                setTimeout(() => this.endbossHurt = false, 1000);
             }
-            
+
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
-            } else {
+            }
+
+            if (!this.isDead() && !this.isHurt() && this.energy > 10) {
                 this.playAnimation(this.IMAGES_ALERT);
             }
 

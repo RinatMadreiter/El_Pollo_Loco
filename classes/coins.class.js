@@ -12,7 +12,7 @@ class Coin extends DrawableObject {
 
     constructor() {
         super().loadImage('img/8.Coin/Moneda1.png'); //super wird nur benötigt wenn man auf Methoden/Funktionen zugreifen möchte
-        this.x = Coin.lastCoinXPos + (100 + Math.random() * 380);
+        this.x = Coin.lastCoinXPos + (100 + Math.random() * 365);
         Coin.lastCoinXPos = this.x;
 
         // this.x = 250 + Math.random() * 1600; //zahl zwischen 250 und 700

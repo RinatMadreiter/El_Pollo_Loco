@@ -39,13 +39,13 @@ class BottleBar extends DrawableObject {
             return 0;
         } else if (this.amountOfBottles == 1 || this.amountOfBottles == 2 || this.amountOfBottles == 3) {
             return 1;
-        } else if (this.amountOfBottles == 4 || this.amountOfBottles == 5 ) {
+        } else if (this.amountOfBottles == 4 || this.amountOfBottles == 5 || this.amountOfBottles == 6) {
             return 2;
-        } else if (this.amountOfBottles == 6 || this.amountOfBottles == 7) {
+        } else if (this.amountOfBottles == 7 || this.amountOfBottles == 8 || this.amountOfBottles == 9) {
             return 3;
-        } else if (this.amountOfBottles == 8 || this.amountOfBottles == 9) {
+        } else if (this.amountOfBottles == 10 || this.amountOfBottles == 11 || this.amountOfBottles == 12) {
             return 4;
-        } else if (this.amountOfBottles >= 10) {
+        } else if (this.amountOfBottles == 13 || this.amountOfBottles == 14 || this.amountOfBottles == 15) {
             return 5;
         }
     }

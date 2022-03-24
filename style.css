@@ -1,7 +1,7 @@
 body {
     display: flex;
-    flex-direction: column;
     align-items: center;
+    justify-content: center;
     background-color: black;
 }
 
@@ -10,3 +10,39 @@ canvas {
     background-size: cover;
     background-color: lightblue;
 }  
+
+.gameScreen {
+    z-index: 5;
+}
+
+.main-highscore-container {
+    display: none;
+    width: 200px;
+    height: 480px;
+    background-color: white;
+    margin-top: 81px;
+    text-align: center;
+}
+
+.game-content {
+    display: flex;
+}
+
+.gameScreen h1 {
+    color: white;
+    text-align: center;
+}
+
+.highscore-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.listed-highscores {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

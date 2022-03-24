@@ -28,17 +28,27 @@
     <script src="./classes/endboss-tinychicken.class.js"></script>
 
 
+
     <script src="./levels/level1.js"></script>
-    <script src="./js/game.js"></script> <!-- die benutzten Klassen müssen vor dem game.js datei geladen werden um darauf zugreifen zu können -->
+    <script src="./js/game.js"></script>
+    <!-- die benutzten Klassen müssen vor dem game.js datei geladen werden um darauf zugreifen zu können -->
     <title>ELL POLLO LOCO</title>
 
 </head>
 
 <body onload="init()">
 
-    <h1>El pollo loco</h1>
-
-    <canvas id="canvas" width="720px" height="480px"></canvas> 
+    <div class="game-content">
+        <div class="gameScreen">
+            <h1>El pollo loco</h1>
+            <canvas id="canvas" width="720px" height="480px"></canvas>
+        </div>
+        <div class="main-highscore-container">
+            <h1>High Scores!</h1>
+            <div id="currentScore">100 Points</div>
+            <div id="allHighscores" class = "listed-highscores"></div>
+        </div>
+    </div>
 
 </body>
 

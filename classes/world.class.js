@@ -19,6 +19,19 @@ class World {
     throwableBottlesArray = [];
     amountOfBottlesToThrow = 0;
     endboss = this.level.endboss[0];
+    
+    //Variables for highscore:
+    currentScoreContainer = document.getElementById('currentScore');
+
+    amountOfBrownChickens = this.level.enemies.length;
+    amountOfBrownChickensForHighscore = this.amountOfBrownChickens;
+    characterHitpoints = 100;
+    endbossHitpoints = 100;
+    collectedCoins = 0;
+    killedChicken = 0;
+    currentScore = 0;
+
+
 
 
 
@@ -35,13 +48,14 @@ class World {
 
     run() {
         setInterval(() => {
-            this.checkCollisions();
             this.checkCoins();
             this.checkBottles();
             this.checkHitChicken();
             this.checkHitEndboss();
+            this.calcCurrentHighscore();
         }, 70); // 200
         setInterval(() => this.checkThrowObjects(), 200);
+        setInterval(() => this.checkCollisions(), 300);
         setInterval(() => this.spawnTinyChickenIfEndbossIsAngry(), 1000);
     }
 
@@ -78,7 +92,6 @@ class World {
                     this.character.chickenDying = true;
                     setTimeout(() => this.character.chickenDying = false, 300);
                     setTimeout(() => this.level.enemies.splice(index, 1), 100);
-                    console.log('chicken succesfully hit with bottle');
                 }
             });
         });
@@ -130,10 +143,8 @@ class World {
     checkChickenCollisions() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
-                // console.log('collision with Character', enemy);
                 this.character.hit();
                 this.hitpointsBar.setPercentage(this.character.energy);
-                // console.log('energie is ', this.character.energy);
             }
         });
     }
@@ -143,10 +154,8 @@ class World {
         this.level.coins.forEach((coin, index) => { //es handelt sich hierbei um eine Anonyme funktion mit 2 Parametern
             if (this.character.isColliding(coin)) {
                 this.coinBar.collectCoins();
-                // console.log('index is ', index);
                 this.level.coins.splice(index, 1);
                 this.coinBar.updateCoinBar(this.coinBar.amountOfCoins);
-                // console.log(' Coin Collision Happened \n\n Amount of Coins is = ' + this.coinBar.amountOfCoins);
             }
         });
     }
@@ -235,4 +244,24 @@ class World {
         }
     }
 
+    //**Highscore related code */
+    //17 chicken, 100 life(-5 when hit), 10 coins, 17 bottles, endboss needs 10 hits
+
+    calcCurrentHighscore() {
+        this.updateVariablesForHighscore();
+        this.multiplyAddVariables();
+    }
+
+    updateVariablesForHighscore() {
+        this.collectedCoins = this.coinBar.amountOfCoins;
+        this.killedChicken = this.amountOfBrownChickensForHighscore - this.level.enemies.length; 
+        this.characterHitpoints = this.character.energy;
+        this.endbossHitpoints = this.endboss.energy;
+    }
+
+    multiplyAddVariables() {
+        let chikenAndCoins = (this.killedChicken + this.collectedCoins) * 5;
+        let allHitpoints = (100 - this.endbossHitpoints) + this.characterHitpoints;
+        this.currentScore = chikenAndCoins + allHitpoints;
+    }
 }

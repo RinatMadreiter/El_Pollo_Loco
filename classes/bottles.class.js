@@ -3,7 +3,7 @@ class Bottle extends DrawableObject {
 
     height = 70;
     width = 15;
-    static lastBottleXPos = 20;
+    static lastBottleXPos = 200;
 
     IMAGE_BOTTLE = [
         'img/6.botella/1.Marcador.png'

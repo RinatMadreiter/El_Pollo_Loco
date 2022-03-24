@@ -19,10 +19,10 @@ class Chicken extends MovableObject {
     constructor() {
         super().loadImage('img/basic_chicken_enemies/brown_chicken/walking1.png'); //super wird nur benötigt wenn man auf Methoden/Funktionen zugreifen möchte
 
-        this.x = 800 + Math.random() * 500; //zahl zwischen 200 und 700 //this.x = 200 + Math.random() * 500
+        this.x = 800 + Math.random() * 2000; //zahl zwischen 
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGE_DEAD);
-        this.speed = 0.15 + Math.random() * 0.7; //Zahl zwischen 0.15 und 0.65 
+        this.speed = 0.5 + Math.random() * 1.5; 
 
         this.animate();
     }

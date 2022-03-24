@@ -92,8 +92,8 @@ class World {
                 this.endbossBar.setPercentage(this.endboss.energy -= 5);
                 setTimeout(() => this.endboss.endbossGettingHit = false, 300);
                 console.log('endboss successfully hit :)');
+                this.spawnEndbossTinyChicken();
             }
-            this.spawnEndbossTinyChicken();
         });
     }
 
@@ -103,7 +103,7 @@ class World {
             let tinyChicken = new EndbossTinyChicken();
             this.endbossTinyChicken.push(tinyChicken);
             this.tinyChickenSpawned = true;
-            setTimeout(() => {this.tinyChickenSpawned = false; console.log('chickenspawned is ',this.tinyChickenSpawned);}, 1500);
+            setTimeout(() => {this.tinyChickenSpawned = false; console.log('chickenspawned is ',this.tinyChickenSpawned);}, 1000);
             console.log('chickenspawned is ',this.tinyChickenSpawned);
         }
 

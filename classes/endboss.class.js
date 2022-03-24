@@ -79,13 +79,25 @@ class Endboss extends MovableObject {
             }
 
             if (this.isHurt()) {
-                this.playAnimation(this.IMAGES_HURT); // TODO
+                this.playAnimation(this.IMAGES_HURT); 
                 setTimeout(() => {
                     this.moveRight();
                     this.endbossHurt = true;
                 }, 500);
 
             }
+
+
+            if (this.energy == 10 && this.isHurt()) {
+                this.playAnimation(this.IMAGES_HURT); 
+                setTimeout(() => {
+                    this.speed = 50;
+                    this.moveRight();
+                    this.endbossHurt = true;
+                    console.log('moved right 2 for endmove');
+                }, 500);
+            }
+
 
             if (this.energy == 10 && !this.isDead() && !this.isHurt()) {
                 this.playAnimation(this.IMAGES_ATTACKING);

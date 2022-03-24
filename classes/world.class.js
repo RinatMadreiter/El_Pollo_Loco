@@ -56,7 +56,7 @@ class World {
         }, 70); // 200
         setInterval(() => this.checkThrowObjects(), 200);
         setInterval(() => this.checkCollisions(), 300);
-        setInterval(() => this.spawnTinyChickenIfEndbossIsAngry(), 1000);
+        setInterval(() => this.spawnTinyChickenIfEndbossIsAngry(), 1100);
     }
 
 
@@ -131,6 +131,7 @@ class World {
     checkCollisions() {
         this.checkChickenCollisions();
         this.checkEndbossCollisions();
+        this.checkTinyChickenCollisions();
     }
 
     checkEndbossCollisions() {
@@ -145,6 +146,16 @@ class World {
             if (this.character.isColliding(enemy)) {
                 this.character.hit();
                 this.hitpointsBar.setPercentage(this.character.energy);
+            }
+        });
+    }
+
+    checkTinyChickenCollisions() {
+        this.endbossTinyChicken.forEach((enemy) => {
+            if (this.character.isColliding(enemy)) {
+                this.character.hit();
+                this.hitpointsBar.setPercentage(this.character.energy);
+                console.log('collided with tiny chicken');
             }
         });
     }
@@ -250,6 +261,7 @@ class World {
     calcCurrentHighscore() {
         this.updateVariablesForHighscore();
         this.multiplyAddVariables();
+        this.renderCurrentScore();
     }
 
     updateVariablesForHighscore() {
@@ -263,5 +275,9 @@ class World {
         let chikenAndCoins = (this.killedChicken + this.collectedCoins) * 5;
         let allHitpoints = (100 - this.endbossHitpoints) + this.characterHitpoints;
         this.currentScore = chikenAndCoins + allHitpoints;
+    }
+
+    renderCurrentScore() {
+        this.currentScoreContainer.innerHTML = this.currentScore;
     }
 }

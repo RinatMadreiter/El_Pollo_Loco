@@ -1,6 +1,8 @@
 class EndbossTinyChicken extends MovableObject {
     x = world.level.endboss[0].x + 100;
-    y = 285;
+    width = 60;
+    height = 50;
+    y = 375;
     speed = 3.5;
     intervalAnimation = 200;
 

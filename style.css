@@ -16,7 +16,7 @@ canvas {
 }
 
 .main-highscore-container {
-    display: none;
+    /* display: none; */
     width: 200px;
     height: 480px;
     background-color: white;

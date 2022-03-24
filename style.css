@@ -3,12 +3,19 @@ body {
     align-items: center;
     justify-content: center;
     background-color: black;
+    background-image: url("img/9.Intro _ Outro Image/background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 0;
+    height: 100vh;
+    font-family: 'Roboto Slab', serif;
 }
 
 canvas {
     background-image: url(img/5.Fondo/Capas/5.cielo_1920-1080px.png);
     background-size: cover;
     background-color: lightblue;
+    border-radius: 8px;
 }  
 
 .gameScreen {
@@ -20,17 +27,24 @@ canvas {
     width: 200px;
     height: 480px;
     background-color: white;
-    margin-top: 81px;
+    margin-top: 128px;
     text-align: center;
+    border-radius: 8px;
 }
 
 .game-content {
     display: flex;
+    margin-bottom: 75px;
+
 }
 
 .gameScreen h1 {
-    color: white;
+    color: rgb(75, 5, 5);
     text-align: center;
+    font-size: xxx-large;
+    font-weight: 700;
+    margin-left: 200px;
+
 }
 
 .highscore-container {

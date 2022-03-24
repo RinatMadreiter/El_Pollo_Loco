@@ -231,7 +231,7 @@ class World {
             this.flipImageBack(movableObject);
         }
 
-        movableObject.drawFrame(this.ctx);
+        // movableObject.drawFrame(this.ctx); //function to draw a frame around objects
     }
 
 

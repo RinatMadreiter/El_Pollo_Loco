@@ -5,7 +5,7 @@ class Endboss extends MovableObject {
     y = 50;
     hadContactWithEndboss = false;
     energy = 100;
-    endbossGettingHit = false;
+    endbossHurt = false;
 
 
     IMAGES_ALERT = [
@@ -49,6 +49,12 @@ class Endboss extends MovableObject {
         'img/4.Endboss/4.Muerte/G26.png'
     ];
 
+    IMAGES_TINYCHICKEN_WALKING = [
+        'img/3.Secuencias_Enemy_básico/Versión_pollito/walking1.png',
+        'img/3.Secuencias_Enemy_básico/Versión_pollito/walking2.png',
+        'img/3.Secuencias_Enemy_básico/Versión_pollito/walking3.png'
+    ];
+
     constructor() {
         super().loadImage(this.IMAGES_ALERT[0]);  //super wird nur benötigt wenn man auf Methoden/funktionen zugreifen möchte
         this.loadImages(this.IMAGES_ARRIVING);
@@ -70,12 +76,22 @@ class Endboss extends MovableObject {
             if (i < 10) {
                 this.playAnimation(this.IMAGES_ARRIVING);
                 this.moveLeft();
+            }
 
-            } else if (this.isHurt()) { // TODO
+            if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT); // TODO
-                setTimeout(() => this.moveRight(), 500);
+                setTimeout(() => { this.moveRight();
+                this.endbossHurt = true;
+                }, 500);
 
-            } else if (this.isDead()) {
+            }
+
+            if (this.endbossHurt) {
+                this.playAnimation(this.IMAGES_ATTACKING);
+                setTimeout(() => this.endbossHurt = false, 1000);
+            }
+            
+            if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
             } else {
                 this.playAnimation(this.IMAGES_ALERT);
@@ -89,7 +105,6 @@ class Endboss extends MovableObject {
             }
 
         }, 200);
-
 
     }
 

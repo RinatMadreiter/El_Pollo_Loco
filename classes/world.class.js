@@ -14,6 +14,7 @@ class World {
     coinBar = new CoinBar();
     bottleBar = new BottleBar();
     endbossBar = new EndbossBar();
+    endbossTinyChicken = new EndbossTinyChicken();
     throwableBottlesArray = [];
     amountOfBottlesToThrow = 0;
     endboss = this.level.endboss[0];
@@ -88,7 +89,7 @@ class World {
                 this.endboss.hit();
                 this.endboss.endbossGettingHit = true;
                 this.endbossBar.setPercentage(this.endboss.energy -= 5);
-                setTimeout(() => this.endboss.endbossGettingHit = false, 300);
+                setTimeout(() => this.endboss.endbossGettingHit = false, 300); 
                 console.log('endboss successfully hit :)');
             }
         });

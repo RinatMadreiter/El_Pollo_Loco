@@ -14,10 +14,12 @@ class World {
     coinBar = new CoinBar();
     bottleBar = new BottleBar();
     endbossBar = new EndbossBar();
-    endbossTinyChicken = new EndbossTinyChicken();
+    endbossTinyChicken = [];
+    tinyChickenSpawned = false;
     throwableBottlesArray = [];
     amountOfBottlesToThrow = 0;
     endboss = this.level.endboss[0];
+
 
 
 
@@ -49,7 +51,6 @@ class World {
             this.throwableBottlesArray.push(bottle);
             this.amountOfBottlesToThrow -= 1;
             this.bottleBar.amountOfBottles -= 1;
-            // this.checkHitChicken();
             setTimeout(() => this.throwableBottlesArray.splice(0, 1), 1300);
             this.bottleBar.updateBottleBar(this.bottleBar.amountOfBottles);
         }
@@ -89,10 +90,23 @@ class World {
                 this.endboss.hit();
                 this.endboss.endbossGettingHit = true;
                 this.endbossBar.setPercentage(this.endboss.energy -= 5);
-                setTimeout(() => this.endboss.endbossGettingHit = false, 300); 
+                setTimeout(() => this.endboss.endbossGettingHit = false, 300);
                 console.log('endboss successfully hit :)');
             }
+            this.spawnEndbossTinyChicken();
         });
+    }
+
+
+    spawnEndbossTinyChicken() {
+        if (!this.tinyChickenSpawned) {
+            let tinyChicken = new EndbossTinyChicken();
+            this.endbossTinyChicken.push(tinyChicken);
+            this.tinyChickenSpawned = true;
+            setTimeout(() => {this.tinyChickenSpawned = false; console.log('chickenspawned is ',this.tinyChickenSpawned);}, 1500);
+            console.log('chickenspawned is ',this.tinyChickenSpawned);
+        }
+
     }
 
 
@@ -138,6 +152,7 @@ class World {
     }
 
 
+
     draw() {
         this.ctx.clearRect(0, 0, canvas.width, canvas.height); // Löscht die derzeitigen Bilder im Canvas sodass sie nicht dupliziert angezeigt werden 
 
@@ -152,6 +167,7 @@ class World {
         this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.level.bottles); // die zufällig generierten Flaschen auf dem weg
         this.addObjectsToMap(this.level.endboss);
+        this.addObjectsToMap(this.endbossTinyChicken);
 
         //--- Space for fixed Objects----
         this.ctx.translate(-this.camera_x, 0);

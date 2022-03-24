@@ -5,7 +5,7 @@ class Level {
     backgroundObjects;
     coins;
     bottles;
-    level_end_x = 2260;
+    level_end_x = 3700; // 2260
 
     constructor(enemies, endboss, clouds, backgroundObjects, coins, bottles) { //constructor wird am Anfang aufgerufen, bei Erstellung
         this.enemies = enemies;

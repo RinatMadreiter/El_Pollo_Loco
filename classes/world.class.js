@@ -179,7 +179,6 @@ class World {
         this.addToMap(this.hitpointsBar);
         this.addToMap(this.bottleBar);
         this.addToMap(this.coinBar);
-        // this.addToMap(this.endbossBar);
         this.drawBarIfNearEndboss();
 
         this.ctx.translate(this.camera_x, 0);

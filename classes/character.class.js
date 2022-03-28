@@ -15,7 +15,7 @@ class Character extends MovableObject { //"extends MovableObject" fügt der Clas
         'img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-25.png',
         'img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-26.png'
     ];
-    
+
     IMAGES_JUMPING = [
         'img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-31.png',
         'img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-32.png',
@@ -57,6 +57,19 @@ class Character extends MovableObject { //"extends MovableObject" fügt der Clas
         'img/2.Secuencias_Personaje-Pepe-corrección/1.IDLE/IDLE/I-10.png'
     ];
 
+    IMAGES_LONG_IDLE = [
+        'img/2.Secuencias_Personaje-Pepe-corrección/1.IDLE/LONG_IDLE/I-11.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/1.IDLE/LONG_IDLE/I-12.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/1.IDLE/LONG_IDLE/I-13.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/1.IDLE/LONG_IDLE/I-14.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/1.IDLE/LONG_IDLE/I-15.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/1.IDLE/LONG_IDLE/I-16.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/1.IDLE/LONG_IDLE/I-17.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/1.IDLE/LONG_IDLE/I-18.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/1.IDLE/LONG_IDLE/I-19.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/1.IDLE/LONG_IDLE/I-20.png'
+    ];
+
     walking_sound = new Audio('audio/walking.mp3');
 
 
@@ -68,6 +81,7 @@ class Character extends MovableObject { //"extends MovableObject" fügt der Clas
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMGAGES_IDLE);
+        this.loadImages(this.IMAGES_LONG_IDLE);
 
         this.animate();
         this.applyGravity();
@@ -105,23 +119,28 @@ class Character extends MovableObject { //"extends MovableObject" fügt der Clas
             } else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
             } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-                    this.playAnimation(this.IMAGES_WALKING);
+                this.playAnimation(this.IMAGES_WALKING);
+            } else if (this.notMovingCounter >= 5 && this.notMovingCounter < 8) {
+                this.playAnimation(this.IMGAGES_IDLE);
+            } else if (this.notMovingCounter >= 8) {
+                this.playAnimation(this.IMAGES_LONG_IDLE);
             }
 
-        }, 50); 
+        }, 50);
 
         setInterval(() => {
-            // if(this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN || this.world.keyboard.SPACE || this.world.keyboard.D) {
-            if(!this.isDead() || !this.isHurt() || this.isAboveGround()|| this.moveLeft() || this.moveRight() || this.jump()) {
-                this.notMovingCounter = 0;
-            } else {
+            setInterval(() => {
+                if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN || this.world.keyboard.SPACE || this.world.keyboard.D) {
+                    // if(!this.isDead() || !this.isHurt() || this.isAboveGround()|| this.moveLeft() || this.moveRight() || this.jump()) {
+                    this.notMovingCounter = 0;
+                }
+            }, 100) 
                 this.notMovingCounter++;
-            }
             console.log('notMovingCounter is: ', this.notMovingCounter);
         }, 1000);
     }
 
-    
+
 
 
 }

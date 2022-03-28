@@ -273,6 +273,9 @@ class World {
     multiplyAddVariables() {
         let chikenAndCoins = (this.killedChicken + this.collectedCoins) * 5;
         let allHitpoints = (100 - this.endbossHitpoints) + this.characterHitpoints;
+        if (this.characterHitpoints == 100 && this.endboss.isDead()) {
+            allHitpoints += 50;
+        }
         this.currentScore = chikenAndCoins + allHitpoints;
     }
 

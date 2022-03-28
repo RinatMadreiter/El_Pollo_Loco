@@ -136,7 +136,6 @@ class Character extends MovableObject { //"extends MovableObject" fügt der Clas
                 }
             }, 100) 
                 this.notMovingCounter++;
-            console.log('notMovingCounter is: ', this.notMovingCounter);
         }, 1000);
     }
 

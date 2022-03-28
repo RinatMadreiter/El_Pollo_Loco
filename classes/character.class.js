@@ -5,6 +5,7 @@ class Character extends MovableObject { //"extends MovableObject" fügt der Clas
     speed = 10; //wir überschreiben speed damit Pepe weit laufen kann und nicht 0,
     world;
     chickenDying = false;
+    notMovingCounter = 0;
 
     IMAGES_WALKING = [
         'img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-21.png',
@@ -24,8 +25,7 @@ class Character extends MovableObject { //"extends MovableObject" fügt der Clas
         'img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-36.png',
         'img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-37.png',
         'img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-38.png',
-        'img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-39.png',
-        'img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-40.png'
+        'img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-39.png'
     ];
 
     IMAGES_DEAD = [
@@ -43,6 +43,20 @@ class Character extends MovableObject { //"extends MovableObject" fügt der Clas
         'img/2.Secuencias_Personaje-Pepe-corrección/4.Herido/H-42.png',
         'img/2.Secuencias_Personaje-Pepe-corrección/4.Herido/H-43.png'
     ];
+
+    IMGAGES_IDLE = [
+        'img/2.Secuencias_Personaje-Pepe-corrección/1.IDLE/IDLE/I-1.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/1.IDLE/IDLE/I-2.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/1.IDLE/IDLE/I-3.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/1.IDLE/IDLE/I-4.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/1.IDLE/IDLE/I-5.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/1.IDLE/IDLE/I-6.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/1.IDLE/IDLE/I-7.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/1.IDLE/IDLE/I-8.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/1.IDLE/IDLE/I-9.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/1.IDLE/IDLE/I-10.png'
+    ];
+
     walking_sound = new Audio('audio/walking.mp3');
 
 
@@ -53,6 +67,7 @@ class Character extends MovableObject { //"extends MovableObject" fügt der Clas
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
+        this.loadImages(this.IMGAGES_IDLE);
 
         this.animate();
         this.applyGravity();
@@ -89,14 +104,24 @@ class Character extends MovableObject { //"extends MovableObject" fügt der Clas
                 this.playAnimation(this.IMAGES_HURT);
             } else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
-            } else {
-
-                if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+            } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                     this.playAnimation(this.IMAGES_WALKING);
-                }
             }
-        }, 50); //50
+
+        }, 50); 
+
+        setInterval(() => {
+            // if(this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN || this.world.keyboard.SPACE || this.world.keyboard.D) {
+            if(!this.isDead() || !this.isHurt() || this.isAboveGround()|| this.moveLeft() || this.moveRight() || this.jump()) {
+                this.notMovingCounter = 0;
+            } else {
+                this.notMovingCounter++;
+            }
+            console.log('notMovingCounter is: ', this.notMovingCounter);
+        }, 1000);
     }
+
+    
 
 
 }

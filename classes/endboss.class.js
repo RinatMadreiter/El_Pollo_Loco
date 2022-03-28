@@ -94,7 +94,6 @@ class Endboss extends MovableObject {
                     this.speed = 50;
                     this.moveRight();
                     this.endbossHurt = true;
-                    console.log('moved right 2 for endmove');
                 }, 500);
             }
 

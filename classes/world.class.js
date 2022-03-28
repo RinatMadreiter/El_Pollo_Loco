@@ -155,7 +155,6 @@ class World {
             if (this.character.isColliding(enemy)) {
                 this.character.hit();
                 this.hitpointsBar.setPercentage(this.character.energy);
-                console.log('collided with tiny chicken');
             }
         });
     }

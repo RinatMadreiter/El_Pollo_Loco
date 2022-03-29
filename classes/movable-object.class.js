@@ -6,6 +6,7 @@ class MovableObject extends DrawableObject {  //wie eine Schablone
     energy = 100;
     lastHit = 0;
     otherDirection = false;
+    aboveGroundVariable;
     
 
 
@@ -37,7 +38,7 @@ class MovableObject extends DrawableObject {  //wie eine Schablone
     }
 
     isAboveGround() {
-        if (this instanceof ThrowableObject) { //ThrowableObject should always fall
+        if (this instanceof ThrowableObject &&  this.y <= this.aboveGroundVariable) { //ThrowableObject should always fall
             return true
         } else {
             return this.y < 265;

@@ -24,7 +24,9 @@ class ThrowableObject extends MovableObject {
         this.y = y;
         this.height = 70;
         this.width = 15;
+        this.aboveGroundVariable = 300;
         this.throw();
+        this.animate();
     }
 
 
@@ -33,21 +35,31 @@ class ThrowableObject extends MovableObject {
 
         this.speedY = 30;
         this.applyGravity();
-        let flyingBottleInterval = setInterval(() => {
-            this.playAnimation(this.IMAGES_BOTTLE_FLYING);
-            this.x += 10;
-        }, 25);
-        if (world.character.chickenDying) {
-            clearInterval(flyingBottleInterval);
-            this.splash();
+        if (this.isAboveGround()) {
+            setInterval(() => {
+                this.x += 10;
+            }, 25);
+        }
+        if (!this.isAboveGround()) {
+            debugger;
+            this.speedY = 0;
+            this.acceleration = 0;
+            this.speed = 0;
         }
 
     }
 
-    splash() {
+    animate() {
         setInterval(() => {
-            this.playAnimation(this.IMAGES_BOTTLE_SPLASHING);
-        }, 50);
+            if (this.isAboveGround()) {
+                this.playAnimation(this.IMAGES_BOTTLE_FLYING);
+            } else {
+                this.playAnimation(this.IMAGES_BOTTLE_SPLASHING);
+            }
+
+        }, 25);
     }
+
+
 
 }

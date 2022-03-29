@@ -51,6 +51,7 @@ class World {
             this.checkCoins();
             this.checkBottles();
             this.checkHitChicken();
+            this.checkHitTinyChicken();
             this.checkHitEndboss();
             this.calcCurrentHighscore();
         }, 70); // 200
@@ -66,7 +67,7 @@ class World {
             this.throwableBottlesArray.push(bottle);
             this.amountOfBottlesToThrow -= 1;
             this.bottleBar.amountOfBottles -= 1;
-            setTimeout(() => this.throwableBottlesArray.splice(0, 1), 1300);
+            setTimeout(() => this.throwableBottlesArray.splice(0, 1), 1300); //1300
             this.bottleBar.updateBottleBar(this.bottleBar.amountOfBottles);
         }
     }
@@ -90,8 +91,23 @@ class World {
                 if (bottle.isColliding(enemy) && !this.character.chickenDying) {
                     enemy.hit();
                     this.character.chickenDying = true;
+                    // console.log(enemy.y);
                     setTimeout(() => this.character.chickenDying = false, 300);
                     setTimeout(() => this.level.enemies.splice(index, 1), 100);
+                }
+            });
+        });
+    }
+
+
+    checkHitTinyChicken() {
+        this.endbossTinyChicken.forEach((enemy, index) => {
+            this.throwableBottlesArray.forEach(bottle => {
+                if (bottle.isColliding(enemy) && !this.character.chickenDying) {
+                    enemy.hit();
+                    this.character.chickenDying = true;
+                    setTimeout(() => this.character.chickenDying = false, 300);
+                    setTimeout(() => this.endbossTinyChicken.splice(index, 1), 100);
                 }
             });
         });

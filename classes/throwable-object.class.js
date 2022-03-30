@@ -1,5 +1,7 @@
 class ThrowableObject extends MovableObject {
 
+    groundPosition = 360;
+
     IMAGES_BOTTLE_FLYING = [
         'img/6.botella/Rotación/1.png',
         'img/6.botella/Rotación/2.png',
@@ -24,7 +26,6 @@ class ThrowableObject extends MovableObject {
         this.y = y;
         this.height = 70;
         this.width = 15;
-        this.aboveGroundVariable = 300;
         this.throw();
         this.animate();
     }
@@ -35,29 +36,34 @@ class ThrowableObject extends MovableObject {
 
         this.speedY = 30;
         this.applyGravity();
-        if (this.isAboveGround()) {
-            setInterval(() => {
+
+        setInterval(() => {
+            if (this.isAboveGround()) {
                 this.x += 10;
-            }, 25);
-        }
-        if (!this.isAboveGround()) {
-            debugger;
-            this.speedY = 0;
-            this.acceleration = 0;
-            this.speed = 0;
-        }
+            }
+        }, 25);
+
+        // if (!this.isAboveGround()) {
+        //     debugger;
+        //     this.speedY = 0;
+        //     this.acceleration = 0;
+        //     this.speed = 0;
+        // }
 
     }
 
     animate() {
-        setInterval(() => {
+        let animateInterval = setInterval(() => {
             if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_BOTTLE_FLYING);
             } else {
                 this.playAnimation(this.IMAGES_BOTTLE_SPLASHING);
+                setTimeout(() => {
+                    clearInterval(animateInterval);
+                }, this.IMAGES_BOTTLE_SPLASHING.length * 80);
             }
 
-        }, 25);
+        }, 80);
     }
 
 

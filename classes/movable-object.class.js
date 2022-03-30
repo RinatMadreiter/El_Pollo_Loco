@@ -6,8 +6,7 @@ class MovableObject extends DrawableObject {  //wie eine Schablone
     energy = 100;
     lastHit = 0;
     otherDirection = false;
-    aboveGroundVariable;
-    
+    groundPosition = 265;
 
 
     playAnimation(images) {
@@ -38,47 +37,44 @@ class MovableObject extends DrawableObject {  //wie eine Schablone
     }
 
     isAboveGround() {
-        if (this instanceof ThrowableObject &&  this.y <= this.aboveGroundVariable) { //ThrowableObject should always fall
-            return true
-        } else {
-            return this.y < 265;
-        }
-    }
-
-    jump() {
-        this.speedY = 30;
+        return this.y < this.groundPosition;
     }
 
 
-    // character.isColliding(chicken)
-    isColliding(movableObject) {
-        return this.x + this.width > movableObject.x &&
-            this.y + this.height > movableObject.y &&
-            this.x - 60 < movableObject.x &&
-            this.y < movableObject.y + movableObject.height;
+jump() {
+    this.speedY = 30;
+}
+
+
+// character.isColliding(chicken)
+isColliding(movableObject) {
+    return this.x + this.width > movableObject.x &&
+        this.y + this.height > movableObject.y &&
+        this.x - 60 < movableObject.x &&
+        this.y < movableObject.y + movableObject.height;
+}
+
+
+hit() {
+    this.energy -= 5;
+    if (this.energy < 0) {
+        this.energy = 0;
+    } else {
+        this.lastHit = new Date().getTime();
     }
+}
 
 
-    hit() {
-        this.energy -= 5;
-        if (this.energy < 0) {
-            this.energy = 0;
-        } else {
-            this.lastHit = new Date().getTime();
-        }
-    }
+isDead() {
+    return this.energy == 0;
+}
 
 
-    isDead() {
-        return this.energy == 0;
-    }
-
-
-    isHurt() {
-        let timepassed = new Date().getTime() - this.lastHit; //difference in ms
-        timepassed = timepassed / 1000; // difference in seconds
-        return timepassed < 1;
-    }
+isHurt() {
+    let timepassed = new Date().getTime() - this.lastHit; //difference in ms
+    timepassed = timepassed / 1000; // difference in seconds
+    return timepassed < 1;
+}
 
   
 

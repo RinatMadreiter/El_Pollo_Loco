@@ -42,13 +42,30 @@
 
 </head>
 
-<body onload="init()">
+<body > <!-- onload="init()" -->
 
-    <div class="start-screen">
-        
+    <div class="start-screen" id="startScreen">
+        <div class="game-info">
+            <h2>Welcome to El Pollo Loco!</h2>
+            <p>Help Pepe to collect enough bottles</p>
+            <p>of tabasco and to defeat the crazy chicken.</p>
+            <br>
+            <p>Be careful it is not a normal chicken.</p>
+            <button onclick="startGame()"> <span>&rarr;</span> Click here to start the Game <span>&larr;</span> </button>
+        </div>
+        <div class="keyboard-manual">
+            <img src="img/keyboard_manual/d.png">
+            <span>Throw Bottle</span>
+            <img src="img/keyboard_manual/space.png">
+            <span>Jump</span>
+            <img src="img/keyboard_manual/left.png">
+            <span>Move Left</span>
+            <img src="img/keyboard_manual/right.png">
+            <span>Move Right</span>
+        </div>
     </div>
 
-    <div class="game-content">
+    <div class="game-content d-none" id="gameContent" >
         <div class="gameScreen">
             <h1>El Pollo Loco</h1>
             <canvas id="canvas" width="720px" height="480px"></canvas>
@@ -60,7 +77,7 @@
         </div>
     </div>
 
-
+    <footer><span>icons by <a target="_blank" href="https://icons8.com">Icons8</a></span></footer>
 </body>
 
 

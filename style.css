@@ -3,7 +3,6 @@ body {
     align-items: center;
     justify-content: center;
     background-color: black;
-    background-image: url("img/9.Intro _ Outro Image/background.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     margin: 0;
@@ -33,9 +32,11 @@ canvas {
 }
 
 .game-content {
-    display: flex;
+    display: none;
+    /* display: flex; */
     margin-bottom: 75px;
-
+    background-image: url("img/9.Intro _ Outro Image/background.jpg");
+    
 }
 
 .gameScreen h1 {
@@ -59,4 +60,13 @@ canvas {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.start-screen {
+    background-image: url('img/9.Intro _ Outro Image/Start Screen/Opción 1.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    width: 100vw;
+    height: 100vh;
 }

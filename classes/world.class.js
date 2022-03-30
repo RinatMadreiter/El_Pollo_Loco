@@ -91,7 +91,6 @@ class World {
                 if (bottle.isColliding(enemy) && !this.character.chickenDying) {
                     enemy.hit();
                     this.character.chickenDying = true;
-                    // console.log(enemy.y);
                     setTimeout(() => this.character.chickenDying = false, 300);
                     setTimeout(() => this.level.enemies.splice(index, 1), 100);
                 }
@@ -159,10 +158,19 @@ class World {
 
     checkChickenCollisions() {
         this.level.enemies.forEach((enemy) => {
+            // if (this.character.isColliding(enemy)) { //funktionierende function
+            //     this.character.hit();
+            //     this.hitpointsBar.setPercentage(this.character.energy);
+            // }
             if (this.character.isColliding(enemy)) {
                 this.character.hit();
                 this.hitpointsBar.setPercentage(this.character.energy);
             }
+            // if (bottle.isColliding(enemy) && !this.character.chickenDying) {
+            //     enemy.hit();
+            //     this.character.chickenDying = true;
+            //     setTimeout(() => this.character.chickenDying = false, 300);
+            //     setTimeout(() => this.endbossTinyChicken.splice(index, 1), 100);
         });
     }
 

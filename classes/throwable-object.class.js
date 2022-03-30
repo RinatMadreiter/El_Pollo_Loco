@@ -57,6 +57,7 @@ class ThrowableObject extends MovableObject {
             if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_BOTTLE_FLYING);
             } else {
+                this.changeImgSize(80, 80);
                 this.playAnimation(this.IMAGES_BOTTLE_SPLASHING);
                 setTimeout(() => {
                     clearInterval(animateInterval);
@@ -66,6 +67,10 @@ class ThrowableObject extends MovableObject {
         }, 80);
     }
 
+    changeImgSize(height, width) {
+        this.height = height;
+        this.width = width;
+    }
 
 
 }

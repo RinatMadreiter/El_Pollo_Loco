@@ -42,16 +42,18 @@
 
 </head>
 
-<body > <!-- onload="init()" -->
+<body>
+    <!-- onload="init()" -->
 
     <div class="start-screen" id="startScreen">
         <div class="game-info">
             <h2>Welcome to El Pollo Loco!</h2>
             <p>Help Pepe to collect enough bottles</p>
-            <p>of tabasco and to defeat the crazy chicken.</p>
+            <p>of tabasco to defeat the crazy chicken.</p>
             <br>
             <p>Be careful it is not a normal chicken.</p>
-            <button onclick="startGame()"> <span>&rarr;</span> Click here to start the Game <span>&larr;</span> </button>
+            <button onclick="startGame()"> <span>&rarr;</span> Click here to start the Game <span>&larr;</span>
+            </button>
         </div>
         <div class="keyboard-manual">
             <img src="img/keyboard_manual/d.png">
@@ -65,15 +67,21 @@
         </div>
     </div>
 
-    <div class="game-content d-none" id="gameContent" >
+    <div class="game-content d-none" id="gameContent">
         <div class="gameScreen">
             <h1>El Pollo Loco</h1>
             <canvas id="canvas" width="720px" height="480px"></canvas>
+            <div class="endgame-screen d-none" id="endGameContainer" width="720px" height="480px">
+                <img id="gameWonIMG" class="d-none" src="img/9.Intro _ Outro Image/_Game over_ screen/3.Game over.png">
+                <img id="gameLostIMG" class="d-none" src="img/9.Intro _ Outro Image/_Game over_ screen/1.you lost.png">
+            </div>
         </div>
         <div class="main-highscore-container">
             <h1>High Scores!</h1>
             <div>Current Score: <span id="currentScore"></span></div>
-            <div id="allHighscores" class="listed-highscores"></div>
+            <div id="allHighscores" class="listed-highscores">
+                <div class="highest-score">Highest Score: &nbsp <p id="highestScore">200</p> </div>
+            </div>
         </div>
     </div>
 

@@ -71,11 +71,18 @@ class Character extends MovableObject { //"extends MovableObject" fügt der Clas
     ];
 
     walking_sound = new Audio('audio/walking.mp3');
+    jumping_sound = new Audio('audio/jump.mp3');
+    
 
+    adjustVolumeOfSounds() {
+        this.walking_sound.volume = 0.5;
+        this.jumping_sound.volume = 0.1; 
+    }
 
 
     constructor() { //das wird immer als erste Funktion bei der Erstellung der Klasse aufgerufen z.bsp: bei character = new Character();
         super().loadImage('img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-21.png'); //super(); wird benötigt um auf eine funktion einer Klasse der höheren Ebene zugreifen zu können
+        this.adjustVolumeOfSounds();
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_DEAD);
@@ -105,10 +112,11 @@ class Character extends MovableObject { //"extends MovableObject" fügt der Clas
 
             if (this.world.keyboard.SPACE && !this.isAboveGround()) {
                 this.jump();
+                this.jumping_sound.play();
             }
 
             this.world.camera_x = -this.x + 100;
-        }, 17) //17 
+        }, 17) 
 
         setInterval(() => {
 

@@ -19,7 +19,7 @@ class World {
     throwableBottlesArray = [];
     amountOfBottlesToThrow = 0;
     endboss = this.level.endboss[0];
-    
+
     //Variables for highscore:
     currentScoreContainer = document.getElementById('currentScore');
 
@@ -31,12 +31,44 @@ class World {
     killedChicken = 0;
     currentScore = 0;
 
+    hurt_sound = new Audio('audio/hurt.mp3');
+    collectBottle_sound = new Audio('audio/bottle.mp3');
+    coin_sound = new Audio('audio/coin.mp3');
+    bottleSplash_sound = new Audio('audio/glass.mp3');
+    bottleThrow_sound = new Audio('audio/throw.mp3');
+    endboss_sound = new Audio('audio/chicken.mp3');
+    won_sound = new Audio('audio/win.mp3');
+    lost_sound = new Audio('audio/lost.mp3');
+    background_music = new Audio('audio/music.mp3');
+    endGameStatus = false;
 
+    LoopBackgroundMusic() {
+        if (this.level.endboss[0].energy > 0 && this.character.energy > 0) {
+            this.background_music.volume = 0.25;
+            this.background_music.play();
+        } else {
+            this.background_music.pause();
+        }
+    }
+
+
+
+    adjustVolumeOfSounds() {
+        this.hurt_sound.volume = 0.1;
+        this.collectBottle_sound.volume = 0.2;
+        this.coin_sound.volume = 0.05;
+        this.bottleSplash_sound.volume = 0.1;
+        this.bottleThrow_sound.volume = 0.1;
+        this.endboss_sound.volume = 0.1;
+        this.won_sound.volume = 0.2;
+        this.lost_sound.volume = 0.1;
+    }
 
 
 
 
     constructor(canvas, keyboard) {
+        this.adjustVolumeOfSounds();
         this.ctx = canvas.getContext('2d'); // ermöglich dem Canvas die Bilder im 2D Format hinzuzufügen, in der 'ctx' variable gespeichert
         this.canvas = canvas; //in das globale Canvas von World.class wird der Parameter Canvas gespeichert, für die untere draw methode,
         this.keyboard = keyboard;
@@ -47,6 +79,7 @@ class World {
 
 
     run() {
+
         setInterval(() => {
             this.checkCoins();
             this.checkBottles();
@@ -54,20 +87,33 @@ class World {
             this.checkHitTinyChicken();
             this.checkHitEndboss();
             this.calcCurrentHighscore();
+            this.playSoundIfNearEndboss();
+            this.LoopBackgroundMusic();
+            this.checkIfLostOrWon();
         }, 70); // 200
+        
         setInterval(() => this.checkThrowObjects(), 200);
         setInterval(() => this.checkCollisions(), 300);
         setInterval(() => this.spawnTinyChickenIfEndbossIsAngry(), 1100);
+
     }
 
+    checkIfLostOrWon() {
+        this.gameWon();
+        this.gameLost();
+    }
 
     checkThrowObjects() {
         if (this.keyboard.D && this.amountOfBottlesToThrow > 0) {
+            this.bottleThrow_sound.play();
             let bottle = new ThrowableObject(this.character.x + 50, this.character.y + 35);
             this.throwableBottlesArray.push(bottle);
             this.amountOfBottlesToThrow -= 1;
             this.bottleBar.amountOfBottles -= 1;
-            setTimeout(() => this.throwableBottlesArray.splice(0, 1), 1300); //1300
+            setTimeout(() => {
+                this.bottleSplash_sound.play();
+            }, 1000);
+            setTimeout(() => this.throwableBottlesArray.splice(0, 1), 1300);
             this.bottleBar.updateBottleBar(this.bottleBar.amountOfBottles);
         }
     }
@@ -76,6 +122,7 @@ class World {
     checkBottles() {
         this.level.bottles.forEach((bottle, index) => { //es handelt sich hierbei um eine Anonyme funktion mit 2 Parametern
             if (this.character.isColliding(bottle)) {
+                this.collectBottle_sound.play();
                 this.bottleBar.collectBottles(); // increase AmountOfBottles for BottleBar +=1
                 this.level.bottles.splice(index, 1); //remove bottle from canvas
                 this.bottleBar.updateBottleBar(this.bottleBar.amountOfBottles);
@@ -153,24 +200,17 @@ class World {
         if (this.character.isColliding(this.endboss)) {
             this.character.hit();
             this.hitpointsBar.setPercentage(this.character.energy);
+            this.hurt_sound.play();
         }
     }
 
     checkChickenCollisions() {
         this.level.enemies.forEach((enemy) => {
-            // if (this.character.isColliding(enemy)) { //funktionierende function
-            //     this.character.hit();
-            //     this.hitpointsBar.setPercentage(this.character.energy);
-            // }
             if (this.character.isColliding(enemy)) {
                 this.character.hit();
                 this.hitpointsBar.setPercentage(this.character.energy);
+                this.hurt_sound.play();
             }
-            // if (bottle.isColliding(enemy) && !this.character.chickenDying) {
-            //     enemy.hit();
-            //     this.character.chickenDying = true;
-            //     setTimeout(() => this.character.chickenDying = false, 300);
-            //     setTimeout(() => this.endbossTinyChicken.splice(index, 1), 100);
         });
     }
 
@@ -179,6 +219,7 @@ class World {
             if (this.character.isColliding(enemy)) {
                 this.character.hit();
                 this.hitpointsBar.setPercentage(this.character.energy);
+                this.hurt_sound.play();
             }
         });
     }
@@ -187,6 +228,7 @@ class World {
     checkCoins() {
         this.level.coins.forEach((coin, index) => { //es handelt sich hierbei um eine Anonyme funktion mit 2 Parametern
             if (this.character.isColliding(coin)) {
+                this.coin_sound.play();
                 this.coinBar.collectCoins();
                 this.level.coins.splice(index, 1);
                 this.coinBar.updateCoinBar(this.coinBar.amountOfCoins);
@@ -222,7 +264,8 @@ class World {
         this.addToMap(this.hitpointsBar);
         this.addToMap(this.bottleBar);
         this.addToMap(this.coinBar);
-        this.drawBarIfNearEndboss();
+        this.drawBarAndPlaySoundIfNearEndboss();
+        // this.drawBarIfNearEndboss();
 
         this.ctx.translate(this.camera_x, 0);
 
@@ -271,10 +314,24 @@ class World {
         this.ctx.restore();
     }
 
+    drawBarAndPlaySoundIfNearEndboss() {
+        if (this.character.x > 2000 && this.endboss.hadContactWithEndboss) {
+            this.drawBarIfNearEndboss();
+            // this.playSoundIfNearEndboss();
+        }
+    }
 
     drawBarIfNearEndboss() {
-        if (this.character.x > 2000 && this.endboss.hadContactWithEndboss) {
-            this.addToMap(this.endbossBar);
+        this.addToMap(this.endbossBar);
+        this.playSoundIfNearEndboss();
+    }
+
+    playSoundIfNearEndboss() {
+        if (this.character.x > 2000 && this.level.endboss[0].energy > 0) {
+            this.endboss_sound.play();
+            this.endboss_sound.loop = true;
+        } else {
+            this.endboss_sound.pause();
         }
     }
 
@@ -289,7 +346,7 @@ class World {
 
     updateVariablesForHighscore() {
         this.collectedCoins = this.coinBar.amountOfCoins;
-        this.killedChicken = this.amountOfBrownChickensForHighscore - this.level.enemies.length; 
+        this.killedChicken = this.amountOfBrownChickensForHighscore - this.level.enemies.length;
         this.characterHitpoints = this.character.energy;
         this.endbossHitpoints = this.endboss.energy;
     }
@@ -305,5 +362,41 @@ class World {
 
     renderCurrentScore() {
         this.currentScoreContainer.innerHTML = this.currentScore;
+    }
+
+    gameWon() {
+        if (this.level.endboss[0].energy == 0 && this.endGameStatus == false) {
+            document.getElementById('canvas').classList.add('d-none');
+            document.getElementById('endGameContainer').classList.remove('d-none');
+            document.getElementById('gameWonIMG').classList.remove('d-none');
+            this.muteAllNotEndgameSounds();
+            this.won_sound.play();
+            this.endGameStatus = true;
+            console.log('game WON');
+        }
+    }
+
+
+
+    gameLost() {
+        if (this.character.energy == 0 && this.endGameStatus == false) {
+                document.getElementById('canvas').classList.add('d-none');
+                document.getElementById('endGameContainer').classList.remove('d-none');
+                document.getElementById('gameLostIMG').classList.remove('d-none');
+                this.muteAllNotEndgameSounds();
+                this.lost_sound.play();
+                this.endGameStatus = true;
+                console.log('game Lost');
+        }
+    }
+
+
+    muteAllNotEndgameSounds() {
+        this.hurt_sound.volume = 0;
+        this.collectBottle_sound.volume = 0;
+        this.coin_sound.volume = 0;
+        this.bottleSplash_sound.volume = 0;
+        this.bottleThrow_sound.volume = 0;
+        this.endboss_sound.volume = 0;
     }
 }

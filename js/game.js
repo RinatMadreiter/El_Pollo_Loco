@@ -14,13 +14,6 @@ function init() {
 }
 
 
-
-
-
-
-/**
- * change Keyboard-Variables to "true" if key is pressed
- */
 window.addEventListener('keydown', (event) => {
     if(event.key == "ArrowRight"){
         keyboard.RIGHT = true;

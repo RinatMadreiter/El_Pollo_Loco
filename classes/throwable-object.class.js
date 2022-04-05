@@ -43,12 +43,6 @@ class ThrowableObject extends MovableObject {
             }
         }, 25);
 
-        // if (!this.isAboveGround()) {
-        //     debugger;
-        //     this.speedY = 0;
-        //     this.acceleration = 0;
-        //     this.speed = 0;
-        // }
 
     }
 

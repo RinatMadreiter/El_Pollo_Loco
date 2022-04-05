@@ -1,12 +1,15 @@
 let level1;
 
+
+
 function startGame() {
     initLevel1();
     init();
-    setTimeout(() => {
-        hideStartScreenDisplayGameContent();
-    }, 500);
+    hideStartScreenDisplayGameContent();
 }
+
+
+
 
 function initLevel1() {
 

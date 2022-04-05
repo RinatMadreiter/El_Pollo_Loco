@@ -36,8 +36,10 @@ canvas {
 }
 
 .game-content {
+    width: 100vw;
+    height: 100vh;
     display: flex;
-    margin-bottom: 75px;
+    justify-content: center;
     background-image: url("img/9.Intro _ Outro Image/background.jpg");
 }
 
@@ -82,7 +84,7 @@ canvas {
 }
 
 .game-info {
-    width: 50vw;
+    width: 60vw;
     background-color: rgba(255, 255, 255, 0.7);
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
@@ -112,37 +114,10 @@ canvas {
 }
 
 .game-info button:active {
-    
-        animation: gradient 150ms;
-        animation-direction: alternate-reverse;
-        background: #f88;
-        color: rgb(248, 252, 7);
-        box-shadow: none;
-      
+
+    background-color: #ff9600;
 }
 
-@keyframes gradient {
-    0% {
-        background: radial-gradient(circle at center, rgba(255, 125, 125, 0) 0%, #fff 0%, #fff 100%);
-    }
-
-    25% {
-        background: radial-gradient(circle at center, rgba(255, 125, 125, 0.3) 24%, #fff 25%, #fff 100%);
-    }
-
-    50% {
-        background: radial-gradient(circle at center, rgba(255, 125, 125, 0.5) 49%, #fff 50%, #fff 100%);
-    }
-
-    75% {
-        background: radial-gradient(circle at center, rgba(255, 125, 125, 0.8) 74%, #fff 75%, #fff 100%);
-    }
-
-    100% {
-        color: #fff;
-        background: radial-gradient(circle at center, #f88 99%, #fff 100%, #fff 100%);
-    }
-}
 
 .game-info button span:last-child {
     font-size: 25px;
@@ -183,9 +158,9 @@ canvas {
 }
 
 .keyboard-manual {
-    width: 50vw;
+    width: 60vw;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
     background-color: #ff9600;
     border-bottom-left-radius: 8px;
@@ -199,8 +174,26 @@ canvas {
 footer {
     position: fixed;
     bottom: 5px;
+    z-index: 5;
 }
 
 .d-none {
     display: none;
+}
+
+.endgame-screen {
+    border-radius: 8px;
+}
+
+.endgame-screen img {
+    width: 720px;
+    height: 480px;
+    border-radius: 8px;
+}
+
+
+.highest-score {
+    height: 400px;
+    display: flex;
+    align-items: center;
 }

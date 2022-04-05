@@ -95,6 +95,7 @@ function saveHighscore() {
         saveScoreLocalStorage();
         alert('Your new highscore was succesfully saved!');
         hideHighscoreInput();
+        renderLoadOldHighscore();
     }
 }
 

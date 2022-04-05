@@ -385,6 +385,7 @@ class World {
             this.endGameStatus = true;
             this.endbossTinyChicken = [];
             this.displayHighscoreInput();
+            
         }
     }
 
@@ -440,22 +441,7 @@ class World {
     }
 
 
-    saveHighscore() {
-        if (!this.playerName.value) {
-            alert('Please enter a Player-Name');
-        } else {
-            this.savedPlayerName.push(this.playerName.value);
-            this.savedHighscore.push(this.currentScore);
-            this.saveScoreLocalStorage();
-            console.log('savedHighscore');
-        }
+ 
 
-    }
 
-     saveScoreLocalStorage() {
-        let savedPlayerNameAsText = JSON.stringify(this.savedPlayerName);
-        localStorage.setItem('savedPlayerName', savedPlayerNameAsText);
-        let savedHighscoreAsText = JSON.stringify(this.savedHighscore);
-        localStorage.setItem('savedHighscore', savedHighscoreAsText);
-     }
 }

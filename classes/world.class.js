@@ -378,6 +378,7 @@ class World {
     gameWon() {
         if (this.level.endboss[0].energy == 0 && this.endGameStatus == false) {
             this.hideCanvasDisplayGameEnd();
+            this.restyleRestartButtonForEndscreen();
             document.getElementById('gameWonIMG').classList.remove('d-none');
             this.muteAllNotEndgameSounds();
             this.won_sound.play();
@@ -399,6 +400,7 @@ class World {
     gameLost() {
         if (this.character.energy == 0 && this.endGameStatus == false) {
             this.hideCanvasDisplayGameEnd();
+            this.restyleRestartButtonForEndscreen();
             document.getElementById('gameLostIMG').classList.remove('d-none');
             this.muteAllNotEndgameSounds();
             this.lost_sound.play();
@@ -429,6 +431,12 @@ class World {
             this.hiddenHighscoreContainer.classList.add('d-flex');
             this.highestScoreDisplayed.innerHTML = this.currentScore;
         }
+    }
+
+    restyleRestartButtonForEndscreen() {
+        document.getElementById('restartBtn').style.bottom = '-446px';
+        document.getElementById('restartBtn').style.left = '333px';
+        document.getElementById('restartBtn').style.width = '68px';
     }
 
 

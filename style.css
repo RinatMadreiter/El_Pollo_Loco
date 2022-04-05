@@ -206,6 +206,10 @@ footer {
     width: 37px;
 }
 
+.fullscreen-btn:hover {
+    transform: scale(1.2, 1.2);
+}
+
 .canvas-container {
     position: relative;
 }
@@ -269,10 +273,23 @@ footer {
 }
 
 .hidden-highscore-container button:hover {
-background-color: rgb(41 168 206 / 90%);
+    background-color: rgb(41 168 206 / 90%);
 }
 
 .current-score {
     margin-top: 103px;
     font-size: larger;
+}
+
+
+.restart-btn {
+    position: absolute;
+    bottom: 16px;
+    left: 21px;
+    cursor: pointer;
+    width: 37px;
+}
+
+.restart-btn:hover {
+    transform: scale(1.2, 1.2);
 }

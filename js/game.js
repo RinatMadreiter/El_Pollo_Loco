@@ -129,3 +129,7 @@ function renderOldHighscore() {
     world.highestScore.innerHTML = world.savedHighscore[0];
     world.player.innerHTML = world.savedPlayerName[0];
 }
+
+function reloadPage() {
+    location.reload();
+}

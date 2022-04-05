@@ -1,11 +1,12 @@
 class World {
     character = new Character(); // bei neuen Variablen in Klassen braucht man auch kein "Let" davor wie sonst
-
+    
     level = level1;
     // backgroundObjects = level1.backgroundObjects;
     // clouds = level1.clouds;
     // enemies = level1.enemies;
 
+    highscore;
     ctx;
     canvas;
     keyboard;
@@ -22,6 +23,11 @@ class World {
 
     //Variables for highscore:
     currentScoreContainer = document.getElementById('currentScore');
+    highestScore = document.getElementById('highestScore');
+    player = document.getElementById('player');
+    highestScoreDisplayed = document.getElementById('highestScoreDisplayed');
+    hiddenHighscoreContainer = document.getElementById('hiddenHighscoreContainer');
+    playerName = document.getElementById('playerInput');
 
     amountOfBrownChickens = this.level.enemies.length;
     amountOfBrownChickensForHighscore = this.amountOfBrownChickens;
@@ -30,6 +36,9 @@ class World {
     collectedCoins = 0;
     killedChicken = 0;
     currentScore = 0;
+
+    savedHighscore = ['0'];
+    savedPlayerName = ['Player-Name'];
 
     hurt_sound = new Audio('audio/hurt.mp3');
     collectBottle_sound = new Audio('audio/bottle.mp3');
@@ -91,7 +100,7 @@ class World {
             this.LoopBackgroundMusic();
             this.checkIfLostOrWon();
         }, 70); // 200
-        
+
         setInterval(() => this.checkThrowObjects(), 200);
         setInterval(() => this.checkCollisions(), 300);
         setInterval(() => this.spawnTinyChickenIfEndbossIsAngry(), 1100);
@@ -240,6 +249,8 @@ class World {
     setWorld() {
         this.character.world = this; //Hier wird dem Character Objekt/Klasse Zugriff auf alles von World gegeben
     }
+    
+    
 
 
 
@@ -366,27 +377,32 @@ class World {
 
     gameWon() {
         if (this.level.endboss[0].energy == 0 && this.endGameStatus == false) {
-            document.getElementById('canvas').classList.add('d-none');
-            document.getElementById('endGameContainer').classList.remove('d-none');
+            this.hideCanvasDisplayGameEnd();
             document.getElementById('gameWonIMG').classList.remove('d-none');
             this.muteAllNotEndgameSounds();
             this.won_sound.play();
             this.endGameStatus = true;
-            console.log('game WON');
+            this.endbossTinyChicken = [];
+            this.displayHighscoreInput();
         }
     }
+
+    hideCanvasDisplayGameEnd() {
+        document.getElementById('canvas').classList.add('d-none');
+        document.getElementById('fullScreen').classList.add('d-none');
+        document.getElementById('endGameContainer').classList.remove('d-none');
+    }
+
 
 
 
     gameLost() {
         if (this.character.energy == 0 && this.endGameStatus == false) {
-                document.getElementById('canvas').classList.add('d-none');
-                document.getElementById('endGameContainer').classList.remove('d-none');
-                document.getElementById('gameLostIMG').classList.remove('d-none');
-                this.muteAllNotEndgameSounds();
-                this.lost_sound.play();
-                this.endGameStatus = true;
-                console.log('game Lost');
+            this.hideCanvasDisplayGameEnd();
+            document.getElementById('gameLostIMG').classList.remove('d-none');
+            this.muteAllNotEndgameSounds();
+            this.lost_sound.play();
+            this.endGameStatus = true;
         }
     }
 
@@ -399,4 +415,39 @@ class World {
         this.bottleThrow_sound.volume = 0;
         this.endboss_sound.volume = 0;
     }
+
+
+
+    NewHighscore() {
+        return this.currentScore > Number(this.highestScore.innerHTML);
+    }
+
+
+    displayHighscoreInput() {
+        if (this.NewHighscore()) {
+            this.hiddenHighscoreContainer.classList.remove('d-none');
+            this.hiddenHighscoreContainer.classList.add('d-flex');
+            this.highestScoreDisplayed.innerHTML = this.currentScore;
+        }
+    }
+
+
+    saveHighscore() {
+        if (!this.playerName.value) {
+            alert('Please enter a Player-Name');
+        } else {
+            this.savedPlayerName.push(this.playerName.value);
+            this.savedHighscore.push(this.currentScore);
+            this.saveScoreLocalStorage();
+            console.log('savedHighscore');
+        }
+
+    }
+
+     saveScoreLocalStorage() {
+        let savedPlayerNameAsText = JSON.stringify(this.savedPlayerName);
+        localStorage.setItem('savedPlayerName', savedPlayerNameAsText);
+        let savedHighscoreAsText = JSON.stringify(this.savedHighscore);
+        localStorage.setItem('savedHighscore', savedHighscoreAsText);
+     }
 }

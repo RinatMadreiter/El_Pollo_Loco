@@ -52,7 +52,7 @@
             <p>of tabasco to defeat the crazy chicken.</p>
             <br>
             <p>Be careful it is not a normal chicken.</p>
-            <button onclick="startGame()"> <span>&rarr;</span> Click here to start the Game <span>&larr;</span>
+            <button onclick="startGame(); renderLoadOldHighscore()"> <span>&rarr;</span> Click here to start the Game <span>&larr;</span>
             </button>
         </div>
         <div class="keyboard-manual">
@@ -70,22 +70,43 @@
     <div class="game-content d-none" id="gameContent">
         <div class="gameScreen">
             <h1>El Pollo Loco</h1>
-            <canvas id="canvas" width="720px" height="480px"></canvas>
+            <div class="canvas-container"><canvas id="canvas" width="720px" height="480px"></canvas>
+                <img class="fullscreen-btn" id="fullScreen" onclick="openFullscreen()"
+                    src="img/keyboard_manual/fullscreen.png">
+            </div>
             <div class="endgame-screen d-none" id="endGameContainer" width="720px" height="480px">
                 <img id="gameWonIMG" class="d-none" src="img/9.Intro _ Outro Image/_Game over_ screen/3.Game over.png">
                 <img id="gameLostIMG" class="d-none" src="img/9.Intro _ Outro Image/_Game over_ screen/1.you lost.png">
             </div>
         </div>
         <div class="main-highscore-container">
-            <h1>High Scores!</h1>
-            <div>Current Score: <span id="currentScore"></span></div>
+            <h1>High Score!</h1>
             <div id="allHighscores" class="listed-highscores">
-                <div class="highest-score">Highest Score: &nbsp <p id="highestScore">200</p> </div>
+                <div class="highest-score">
+                    <br>
+                    <br>
+                    <span id="player">Name</span>
+                    <span>:</span>
+                    <span id="highestScore">0</span>
+                </div>
             </div>
+            <div class="current-score">Current Score: <span id="currentScore"></span></div>
+        </div>
+    </div>
+
+    <div class="hidden-highscore-container d-none" id="hiddenHighscoreContainer">
+        <div class = "inner-highscore-container">
+            <h1>You have reached a new Highscore, Congratulations!! </h1>
+            <h2>You current Highscore is:</h2>
+            <h2 id="highestScoreDisplayed"></h2>
+            <h2>Please Type in your Player-Name</h2>
+            <input type="text" placeholder="Type here..." id="playerInput">
+            <button onclick="saveHighscore()">Submit</button>
         </div>
     </div>
 
     <footer><span>icons by <a target="_blank" href="https://icons8.com">Icons8</a></span></footer>
+
 </body>
 
 

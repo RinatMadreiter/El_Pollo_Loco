@@ -1,6 +1,6 @@
 class World {
     character = new Character(); // bei neuen Variablen in Klassen braucht man auch kein "Let" davor wie sonst
-    
+
     level = level1;
     // backgroundObjects = level1.backgroundObjects;
     // clouds = level1.clouds;
@@ -213,6 +213,17 @@ class World {
         }
     }
 
+    // checkJumpOnChickens() {
+    //     this.level.enemies.forEach((enemy) => {
+    //         if (!this.character.chickenDying && this.character.isAboveGround && this.character.isColliding(enemy) && this.character.applyGravity()) {
+    //             enemy.hit();
+    //             this.character.chickenDying = true;
+    //             setTimeout(() => this.character.chickenDying = false, 300);
+    //             setTimeout(() => this.level.enemies.splice(index, 1), 100);
+    //         }
+    //     });
+    // }
+
     checkChickenCollisions() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
@@ -249,8 +260,8 @@ class World {
     setWorld() {
         this.character.world = this; //Hier wird dem Character Objekt/Klasse Zugriff auf alles von World gegeben
     }
-    
-    
+
+
 
 
 
@@ -377,15 +388,18 @@ class World {
 
     gameWon() {
         if (this.level.endboss[0].energy == 0 && this.endGameStatus == false) {
-            this.hideCanvasDisplayGameEnd();
-            this.restyleRestartButtonForEndscreen();
-            document.getElementById('gameWonIMG').classList.remove('d-none');
-            this.muteAllNotEndgameSounds();
-            this.won_sound.play();
-            this.endGameStatus = true;
-            this.endbossTinyChicken = [];
-            this.displayHighscoreInput();
-            
+            setTimeout(() => {
+                this.hideCanvasDisplayGameEnd();
+                this.restyleRestartButtonForEndscreen();
+                document.getElementById('gameWonIMG').classList.remove('d-none');
+                this.muteAllNotEndgameSounds();
+                this.won_sound.play();
+                this.endGameStatus = true;
+                this.endbossTinyChicken = [];
+                this.displayHighscoreInput();
+            }, 2000);
+
+
         }
     }
 
@@ -441,7 +455,7 @@ class World {
     }
 
 
- 
+
 
 
 }

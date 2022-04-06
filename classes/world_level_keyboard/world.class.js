@@ -1,27 +1,53 @@
 class World {
-    character = new Character(); // bei neuen Variablen in Klassen braucht man auch kein "Let" davor wie sonst
 
+    /**
+     * set level from level1.js file
+     */
     level = level1;
     // backgroundObjects = level1.backgroundObjects;
     // clouds = level1.clouds;
     // enemies = level1.enemies;
 
-    highscore;
-    ctx;
-    canvas;
-    keyboard;
-    camera_x = 0;
+
+    /**
+     * create new Instances of:
+     * 1) 4 static Bars
+     * 2) main character
+     * 
+     */
     hitpointsBar = new HitpointsBar();
     coinBar = new CoinBar();
     bottleBar = new BottleBar();
     endbossBar = new EndbossBar();
+    character = new Character(); 
+
+
+    /**
+     * create canvas related Variables
+     */
+    ctx;
+    canvas;
+    keyboard;
+    camera_x = 0;
+
+
+    /**
+     * create variables for Tinychickens, ThrowableBottles, and Endboss
+     */
     endbossTinyChicken = [];
     tinyChickenSpawned = false;
     throwableBottlesArray = [];
     amountOfBottlesToThrow = 0;
     endboss = this.level.endboss[0];
 
-    //Variables for highscore:
+
+    /**
+     * create variables for highscore:
+     * 1) HTML Elements with ID for display
+     * 2) variables for highscore calculation
+     * 3) Highscore array for Player-Name & Highest Score
+     */
+    
     currentScoreContainer = document.getElementById('currentScore');
     highestScore = document.getElementById('highestScore');
     player = document.getElementById('player');
@@ -40,6 +66,10 @@ class World {
     savedHighscore = ['0'];
     savedPlayerName = ['Player-Name'];
 
+
+    /**
+     * create new audio-variables 
+     */
     hurt_sound = new Audio('audio/hurt.mp3');
     collectBottle_sound = new Audio('audio/bottle.mp3');
     coin_sound = new Audio('audio/coin.mp3');
@@ -49,8 +79,17 @@ class World {
     won_sound = new Audio('audio/win.mp3');
     lost_sound = new Audio('audio/lost.mp3');
     background_music = new Audio('audio/music.mp3');
+
+
+    /**
+     * create variables for endgame
+     */
     endGameStatus = false;
 
+
+    /**
+     * plays Backgroundmusic if endboss and character are alive
+     */
     LoopBackgroundMusic() {
         if (this.level.endboss[0].energy > 0 && this.character.energy > 0) {
             this.background_music.volume = 0.25;
@@ -61,7 +100,9 @@ class World {
     }
 
 
-
+    /**
+     * set the volume of all sounds 
+     */
     adjustVolumeOfSounds() {
         this.hurt_sound.volume = 0.1;
         this.collectBottle_sound.volume = 0.2;
@@ -73,9 +114,11 @@ class World {
         this.lost_sound.volume = 0.1;
     }
 
-
-
-
+    /**
+     * @param {canvasHtmlElement} canvas HTML Canvas Element id='canvas'
+     * @param {*Instance} keyboard Instance from game.js
+     * @constructor
+     */
     constructor(canvas, keyboard) {
         this.adjustVolumeOfSounds();
         this.ctx = canvas.getContext('2d'); // ermöglich dem Canvas die Bilder im 2D Format hinzuzufügen, in der 'ctx' variable gespeichert
@@ -87,8 +130,20 @@ class World {
     }
 
 
+    /**
+     * main function with all intervalls for game Logic
+     */
     run() {
+        this.mainGameLogicInterval70ms();
+        this.slowerGameLogicIntervals200to1100ms();
+    }
 
+    checkIfLostOrWon() {
+        this.gameWon();
+        this.gameLost();
+    }
+
+    mainGameLogicInterval70ms() {
         setInterval(() => {
             this.checkCoins();
             this.checkBottles();
@@ -101,16 +156,12 @@ class World {
             this.LoopBackgroundMusic();
             this.checkIfLostOrWon();
         }, 70); // 200
+    }
 
+    slowerGameLogicIntervals200to1100ms() {
         setInterval(() => this.checkThrowObjects(), 200);
         setInterval(() => this.checkCollisions(), 300);
         setInterval(() => this.spawnTinyChickenIfEndbossIsAngry(), 1100);
-
-    }
-
-    checkIfLostOrWon() {
-        this.gameWon();
-        this.gameLost();
     }
 
     checkThrowObjects() {
@@ -221,16 +272,6 @@ class World {
         return this.character.isJumpingOnChicken(enemy) && this.character.isAboveGround() && enemy.energy != 0 && this.character.speedY < 0;
     }
 
-    // checkJumpOnChickens() {
-    //     this.level.enemies.forEach((enemy) => {
-    //         if (!this.character.chickenDying && this.character.isAboveGround && this.character.isColliding(enemy) && this.character.applyGravity()) {
-    //             enemy.hit();
-    //             this.character.chickenDying = true;
-    //             setTimeout(() => this.character.chickenDying = false, 300);
-    //             setTimeout(() => this.level.enemies.splice(index, 1), 100);
-    //         }
-    //     });
-    // }
 
     checkChickenCollisions() {
         this.level.enemies.forEach((enemy, index) => {
@@ -371,7 +412,6 @@ class World {
     drawBarAndPlaySoundIfNearEndboss() {
         if (this.character.x > 2000 && this.endboss.hadContactWithEndboss) {
             this.drawBarIfNearEndboss();
-            // this.playSoundIfNearEndboss();
         }
     }
 

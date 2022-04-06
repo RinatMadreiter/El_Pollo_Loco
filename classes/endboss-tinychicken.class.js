@@ -5,6 +5,7 @@ class EndbossTinyChicken extends MovableObject {
     y = 375;
     speed = 3.5;
     intervalAnimation = 200;
+    energy = 4;
 
 
     IMAGES_WALKING = [

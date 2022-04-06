@@ -40,43 +40,60 @@ class MovableObject extends DrawableObject {  //wie eine Schablone
         return this.y < this.groundPosition;
     }
 
-
-jump() {
-    this.speedY = 30;
-}
-
-
-// character.isColliding(chicken)
-isColliding(movableObject) {
-    return this.x + this.width > movableObject.x &&
-        this.y + this.height > movableObject.y &&
-        this.x - 60 < movableObject.x &&
-        this.y < movableObject.y + movableObject.height;
-}
-
-
-hit() {
-    this.energy -= 5;
-    if (this.energy < 0) {
-        this.energy = 0;
-    } else {
-        this.lastHit = new Date().getTime();
+    isUnderGround() {
+        return this.y > this. groundPosition;
     }
-}
+
+    correctGroundPos() {
+        if (this.y < this.groundPosition || this.y > this.groundPosition) {
+            this.y = this.groundPosition;
+        } 
+    }
+
+    jump() {
+        this.speedY = 30;
+    }
 
 
-isDead() {
-    return this.energy == 0;
-}
+    isColliding(movableObject) {
+        return this.x + this.width > movableObject.x &&
+            this.y + this.height > movableObject.y &&
+            this.x - 60 < movableObject.x &&
+            this.y < movableObject.y + movableObject.height;
+    }
+
+    isJumpingOnChicken(mo) {
+        return (this.x < mo.x + mo.width &&
+            this.x + this.width + 75 > mo.x&&
+            this.y < mo.y + mo.height &&
+            this.height + this.y > mo.y)
+    }
 
 
-isHurt() {
-    let timepassed = new Date().getTime() - this.lastHit; //difference in ms
-    timepassed = timepassed / 1000; // difference in seconds
-    return timepassed < 1;
-}
 
-  
+
+    hit() {
+        this.energy -= 5;
+        if (this.energy < 0) {
+            this.energy = 0;
+        } else {
+            this.lastHit = new Date().getTime();
+        }
+    }
+
+
+    isDead() {
+        return this.energy == 0;
+    }
+
+
+    isHurt() {
+        let timepassed = new Date().getTime() - this.lastHit; //difference in ms
+        timepassed = timepassed / 1000; // difference in seconds
+        return timepassed < 1;
+    }
+
+
 
 
 

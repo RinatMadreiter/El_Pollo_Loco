@@ -5,6 +5,7 @@ class Character extends MovableObject { //"extends MovableObject" fügt der Clas
     speed = 10; //wir überschreiben speed damit Pepe weit laufen kann und nicht 0,
     world;
     chickenDying = false;
+    vulnerable = true;
     notMovingCounter = 0;
 
     IMAGES_WALKING = [
@@ -148,6 +149,7 @@ class Character extends MovableObject { //"extends MovableObject" fügt der Clas
     }
 
 
+    
 
 
 }

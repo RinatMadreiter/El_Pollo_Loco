@@ -92,6 +92,7 @@ class World {
         setInterval(() => {
             this.checkCoins();
             this.checkBottles();
+            this.checkIfCharacterIsVulnerable();
             this.checkHitChicken();
             this.checkHitTinyChicken();
             this.checkHitEndboss();
@@ -203,6 +204,7 @@ class World {
         this.checkChickenCollisions();
         this.checkEndbossCollisions();
         this.checkTinyChickenCollisions();
+        this.correctGroundPositionIfWrong();
     }
 
     checkEndbossCollisions() {
@@ -211,6 +213,12 @@ class World {
             this.hitpointsBar.setPercentage(this.character.energy);
             this.hurt_sound.play();
         }
+    }
+
+
+
+    characterAboveGround(enemy) {
+        return this.character.isJumpingOnChicken(enemy) && this.character.isAboveGround() && enemy.energy != 0 && this.character.speedY < 0;
     }
 
     // checkJumpOnChickens() {
@@ -225,8 +233,14 @@ class World {
     // }
 
     checkChickenCollisions() {
-        this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy)) {
+        this.level.enemies.forEach((enemy, index) => {
+            if (this.characterAboveGround(enemy)) {
+                this.character.vulnerable = false;
+                this.character.jump();
+                enemy.hit();
+                this.level.enemies.splice(index, 1);
+            }
+            if (this.character.isColliding(enemy) && this.character.vulnerable) {
                 this.character.hit();
                 this.hitpointsBar.setPercentage(this.character.energy);
                 this.hurt_sound.play();
@@ -234,9 +248,27 @@ class World {
         });
     }
 
+    correctGroundPositionIfWrong() {
+        if (this.character.isUnderGround() && this.character.vulnerable && this.character.speedY < 0) {
+            this.character.correctGroundPos();
+        }
+    }
+
+    checkIfCharacterIsVulnerable() {
+        if (!this.character.isAboveGround()) {
+            this.character.vulnerable = true;
+        }
+    }
+
     checkTinyChickenCollisions() {
-        this.endbossTinyChicken.forEach((enemy) => {
-            if (this.character.isColliding(enemy)) {
+        this.endbossTinyChicken.forEach((enemy, index) => {
+            if (this.characterAboveGround(enemy)) {
+                this.character.vulnerable = false;
+                this.character.jump();
+                enemy.hit();
+                this.endbossTinyChicken.splice(index, 1);
+            }
+            if (this.character.isColliding(enemy) && this.character.vulnerable) {
                 this.character.hit();
                 this.hitpointsBar.setPercentage(this.character.energy);
                 this.hurt_sound.play();
@@ -277,7 +309,7 @@ class World {
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.throwableBottlesArray);
         this.addObjectsToMap(this.level.coins);
-        this.addObjectsToMap(this.level.bottles); // die zufällig generierten Flaschen auf dem weg
+        this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.level.endboss);
         this.addObjectsToMap(this.endbossTinyChicken);
 
@@ -319,7 +351,7 @@ class World {
             this.flipImageBack(movableObject);
         }
 
-        // movableObject.drawFrame(this.ctx); //function to draw a frame around objects
+        movableObject.drawFrame(this.ctx); //function to draw a frame around objects
     }
 
 
@@ -388,6 +420,7 @@ class World {
 
     gameWon() {
         if (this.level.endboss[0].energy == 0 && this.endGameStatus == false) {
+            this.endbossTinyChicken = [];
             setTimeout(() => {
                 this.hideCanvasDisplayGameEnd();
                 this.restyleRestartButtonForEndscreen();
@@ -395,7 +428,6 @@ class World {
                 this.muteAllNotEndgameSounds();
                 this.won_sound.play();
                 this.endGameStatus = true;
-                this.endbossTinyChicken = [];
                 this.displayHighscoreInput();
             }, 2000);
 
@@ -421,7 +453,7 @@ class World {
                 this.muteAllNotEndgameSounds();
                 this.lost_sound.play();
                 this.endGameStatus = true;
-            }, 2000);
+            }, 1000);
         }
     }
 

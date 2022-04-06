@@ -138,11 +138,7 @@ class World {
         this.slowerGameLogicIntervals200to1100ms();
     }
 
-    checkIfLostOrWon() {
-        this.gameWon();
-        this.gameLost();
-    }
-
+    
     mainGameLogicInterval70ms() {
         setInterval(() => {
             this.checkCoins();
@@ -155,8 +151,18 @@ class World {
             this.playSoundIfNearEndboss();
             this.LoopBackgroundMusic();
             this.checkIfLostOrWon();
-        }, 70); // 200
+        }, 70); 
     }
+    
+
+    /**
+     * check for end of game
+     */
+    checkIfLostOrWon() {
+        this.gameWon();
+        this.gameLost();
+    }
+
 
     slowerGameLogicIntervals200to1100ms() {
         setInterval(() => this.checkThrowObjects(), 200);

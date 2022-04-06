@@ -414,12 +414,14 @@ class World {
 
     gameLost() {
         if (this.character.energy == 0 && this.endGameStatus == false) {
-            this.hideCanvasDisplayGameEnd();
-            this.restyleRestartButtonForEndscreen();
-            document.getElementById('gameLostIMG').classList.remove('d-none');
-            this.muteAllNotEndgameSounds();
-            this.lost_sound.play();
-            this.endGameStatus = true;
+            setTimeout(() => {
+                this.hideCanvasDisplayGameEnd();
+                this.restyleRestartButtonForEndscreen();
+                document.getElementById('gameLostIMG').classList.remove('d-none');
+                this.muteAllNotEndgameSounds();
+                this.lost_sound.play();
+                this.endGameStatus = true;
+            }, 2000);
         }
     }
 

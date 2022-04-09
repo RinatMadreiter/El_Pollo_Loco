@@ -1,13 +1,20 @@
 class Character extends MovableObject { //"extends MovableObject" fügt der Classe Character alle Eigenschaften von der Klasse Movable Object hinzu
+    /**
+     * define Character variables
+     */
     height = 170;
     width = 65;
     y = 265;
-    speed = 10; //wir überschreiben speed damit Pepe weit laufen kann und nicht 0,
+    speed = 10; //override speed so that character can run and not stand
     world;
     chickenDying = false;
     vulnerable = true;
     notMovingCounter = 0;
 
+
+    /**
+     * define character img-arrays: walking jumping, dead, hurt, idle & long-idle
+     */
     IMAGES_WALKING = [
         'img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-21.png',
         'img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-22.png',
@@ -16,7 +23,6 @@ class Character extends MovableObject { //"extends MovableObject" fügt der Clas
         'img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-25.png',
         'img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-26.png'
     ];
-
     IMAGES_JUMPING = [
         'img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-31.png',
         'img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-32.png',
@@ -28,7 +34,6 @@ class Character extends MovableObject { //"extends MovableObject" fügt der Clas
         'img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-38.png',
         'img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-39.png'
     ];
-
     IMAGES_DEAD = [
         'img/2.Secuencias_Personaje-Pepe-corrección/5.Muerte/D-51.png',
         'img/2.Secuencias_Personaje-Pepe-corrección/5.Muerte/D-52.png',
@@ -38,13 +43,11 @@ class Character extends MovableObject { //"extends MovableObject" fügt der Clas
         'img/2.Secuencias_Personaje-Pepe-corrección/5.Muerte/D-56.png',
         'img/2.Secuencias_Personaje-Pepe-corrección/5.Muerte/D-57.png'
     ];
-
     IMAGES_HURT = [
         'img/2.Secuencias_Personaje-Pepe-corrección/4.Herido/H-41.png',
         'img/2.Secuencias_Personaje-Pepe-corrección/4.Herido/H-42.png',
         'img/2.Secuencias_Personaje-Pepe-corrección/4.Herido/H-43.png'
     ];
-
     IMGAGES_IDLE = [
         'img/2.Secuencias_Personaje-Pepe-corrección/1.IDLE/IDLE/I-1.png',
         'img/2.Secuencias_Personaje-Pepe-corrección/1.IDLE/IDLE/I-2.png',
@@ -57,7 +60,6 @@ class Character extends MovableObject { //"extends MovableObject" fügt der Clas
         'img/2.Secuencias_Personaje-Pepe-corrección/1.IDLE/IDLE/I-9.png',
         'img/2.Secuencias_Personaje-Pepe-corrección/1.IDLE/IDLE/I-10.png'
     ];
-
     IMAGES_LONG_IDLE = [
         'img/2.Secuencias_Personaje-Pepe-corrección/1.IDLE/LONG_IDLE/I-11.png',
         'img/2.Secuencias_Personaje-Pepe-corrección/1.IDLE/LONG_IDLE/I-12.png',
@@ -71,16 +73,26 @@ class Character extends MovableObject { //"extends MovableObject" fügt der Clas
         'img/2.Secuencias_Personaje-Pepe-corrección/1.IDLE/LONG_IDLE/I-20.png'
     ];
 
+
+    /**
+     * define character sounds
+     */
     walking_sound = new Audio('audio/walking.mp3');
     jumping_sound = new Audio('audio/jump.mp3');
     
 
+    /**
+     * adjust volume of character sounds
+     */
     adjustVolumeOfSounds() {
         this.walking_sound.volume = 0.5;
         this.jumping_sound.volume = 0.1; 
     }
 
 
+    /**
+     * load images, adjust sounds, animate and apply gravity
+     */
     constructor() { //das wird immer als erste Funktion bei der Erstellung der Klasse aufgerufen z.bsp: bei character = new Character();
         super().loadImage('img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-21.png'); //super(); wird benötigt um auf eine funktion einer Klasse der höheren Ebene zugreifen zu können
         this.adjustVolumeOfSounds();
@@ -95,6 +107,10 @@ class Character extends MovableObject { //"extends MovableObject" fügt der Clas
         this.applyGravity();
     }
 
+
+    /**
+     * character animate functions 3 intervals, last one has a nested interval for idle
+     */
     animate() {
 
         setInterval(() => {
@@ -140,7 +156,6 @@ class Character extends MovableObject { //"extends MovableObject" fügt der Clas
         setInterval(() => {
             setInterval(() => {
                 if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT || this.world.keyboard.UP || this.world.keyboard.DOWN || this.world.keyboard.SPACE || this.world.keyboard.D) {
-                    // if(!this.isDead() || !this.isHurt() || this.isAboveGround()|| this.moveLeft() || this.moveRight() || this.jump()) {
                     this.notMovingCounter = 0;
                 }
             }, 100) 

@@ -1,5 +1,9 @@
 class Endboss extends MovableObject {
 
+
+    /**
+     * define endboss class variables
+     */
     height = 400;
     width = 250;
     y = 50;
@@ -9,6 +13,10 @@ class Endboss extends MovableObject {
     x = 2800;
 
 
+    /**
+     * define endboss IMG-arrays:
+     * alert, arriving, attacking, hurt and dead 
+     */
     IMAGES_ALERT = [
         'img/4.Endboss/2.attacking_endboss/1.Alerta/G5.png',
         'img/4.Endboss/2.attacking_endboss/1.Alerta/G6.png',
@@ -50,12 +58,11 @@ class Endboss extends MovableObject {
         'img/4.Endboss/4.Muerte/G26.png'
     ];
 
-    IMAGES_TINYCHICKEN_WALKING = [
-        'img/3.Secuencias_Enemy_básico/Versión_pollito/walking1.png',
-        'img/3.Secuencias_Enemy_básico/Versión_pollito/walking2.png',
-        'img/3.Secuencias_Enemy_básico/Versión_pollito/walking3.png'
-    ];
 
+
+    /**
+     * load images and animate
+     */
     constructor() {
         super().loadImage(this.IMAGES_ALERT[0]);  //super wird nur benötigt wenn man auf Methoden/funktionen zugreifen möchte
         this.loadImages(this.IMAGES_ARRIVING);
@@ -68,6 +75,11 @@ class Endboss extends MovableObject {
     }
 
 
+    /**
+     * animate according to condition
+     * interval 200ms
+     * 
+     */
     animate() {
 
         let i = 0;

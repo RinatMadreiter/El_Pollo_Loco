@@ -8,43 +8,49 @@
     <link rel="icon" type="image/x-icon" href="./img/AnyConv.com__Gallina muestra gif.ico">
     <link rel="stylesheet" href="./style.css">
 
+    <!-- all classes -->
     <script src="classes/world_level_keyboard/drawableObjects/drawable-object.class.js"></script>
     <script src="classes/world_level_keyboard/drawableObjects/movableObjects/movable-object.class.js"></script>
     <script src="classes/world_level_keyboard/drawableObjects/bars/hitpoints-bar.class.js"></script>
     <script src="classes/world_level_keyboard/drawableObjects/bars/coin-bar.class.js"></script>
     <script src="classes/world_level_keyboard/drawableObjects/bars/bottle-bar.class.js"></script>
     <script src="classes/world_level_keyboard/world.class.js"></script>
-    <script src="classes/world_level_keyboard/drawableObjects/movableObjects/livingCharacters/character.class.js"></script>
-    <script src="classes/world_level_keyboard/drawableObjects/movableObjects/livingCharacters/chicken.class.js"></script>
+    <script
+        src="classes/world_level_keyboard/drawableObjects/movableObjects/livingCharacters/character.class.js"></script>
+    <script
+        src="classes/world_level_keyboard/drawableObjects/movableObjects/livingCharacters/chicken.class.js"></script>
     <script src="classes/world_level_keyboard/drawableObjects/movableObjects/backgroundObjects/cloud.class.js"></script>
-    <script src="classes/world_level_keyboard/drawableObjects/movableObjects/backgroundObjects/background-object.class.js"></script>
+    <script
+        src="classes/world_level_keyboard/drawableObjects/movableObjects/backgroundObjects/background-object.class.js"></script>
     <script src="classes/world_level_keyboard/drawableObjects/collectable/coins.class.js"></script>
     <script src="classes/world_level_keyboard/drawableObjects/collectable/bottles.class.js"></script>
     <script src="classes/world_level_keyboard/keyboard.class.js"></script>
     <script src="classes/world_level_keyboard/level.class.js"></script>
-    <script src="classes/world_level_keyboard/drawableObjects/movableObjects/livingCharacters/endboss.class.js"></script>
+    <script
+        src="classes/world_level_keyboard/drawableObjects/movableObjects/livingCharacters/endboss.class.js"></script>
     <script src="classes/world_level_keyboard/drawableObjects/bars/endboss-bar.class.js"></script>
     <script src="classes/world_level_keyboard/drawableObjects/movableObjects/throwable-object.class.js"></script>
-    <script src="classes/world_level_keyboard/drawableObjects/movableObjects/livingCharacters/endboss-tinychicken.class.js"></script>
+    <script
+        src="classes/world_level_keyboard/drawableObjects/movableObjects/livingCharacters/endboss-tinychicken.class.js"></script>
 
 
-
+    <!-- all non classes js files -->
     <script src="./levels/level1.js"></script>
     <script src="./js/game.js"></script>
-    <!-- die benutzten Klassen müssen vor dem game.js datei geladen werden um darauf zugreifen zu können -->
+    <!--  all used classes must be loaded before game.js file to be able to access it -->
 
+    <!-- Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
-    <title>EL POLLO LOCO</title>
 
+    <title>EL POLLO LOCO</title>
 </head>
 
 <body>
-    <!-- onload="init()" -->
-
+    <!-- start-Screen -->
     <div class="start-screen" id="startScreen">
         <div class="game-info">
             <h2>Welcome to El Pollo Loco!</h2>
@@ -52,7 +58,8 @@
             <p>of tabasco to defeat the crazy chicken.</p>
             <br>
             <p>Be careful it is not a normal chicken.</p>
-            <button onclick="startGame(); renderLoadOldHighscore()"> <span>&rarr;</span> Click here to start the Game <span>&larr;</span>
+            <button onclick="startGame(); renderLoadOldHighscore()"> <span>&rarr;</span> Click here to start the Game
+                <span>&larr;</span>
             </button>
         </div>
         <div class="keyboard-manual">
@@ -67,13 +74,15 @@
         </div>
     </div>
 
+
+    <!-- Game-Content -->
     <div class="game-content d-none" id="gameContent">
         <div class="gameScreen">
             <h1>El Pollo Loco</h1>
             <div class="canvas-container"><canvas id="canvas" width="720px" height="480px"></canvas>
                 <img class="fullscreen-btn" id="fullScreen" onclick="openFullscreen()"
                     src="img/keyboard_manual/fullscreen.png">
-                    <img src="img/keyboard_manual/restart.png" class="restart-btn" id="restartBtn" onclick="reloadPage()">
+                <img src="img/keyboard_manual/restart.png" class="restart-btn" id="restartBtn" onclick="reloadPage()">
             </div>
             <div class="endgame-screen d-none" id="endGameContainer" width="720px" height="480px">
                 <img id="gameWonIMG" class="d-none" src="img/9.Intro _ Outro Image/_Game over_ screen/3.Game over.png">
@@ -95,8 +104,10 @@
         </div>
     </div>
 
+
+    <!-- Highscore Container Hidden -->
     <div class="hidden-highscore-container d-none" id="hiddenHighscoreContainer">
-        <div class = "inner-highscore-container">
+        <div class="inner-highscore-container">
             <h1>You have reached a new Highscore, Congratulations!! </h1>
             <h2>You current Highscore is:</h2>
             <h2 id="highestScoreDisplayed"></h2>
@@ -106,10 +117,11 @@
         </div>
     </div>
 
+
+    <!-- Footer -->
     <footer><span>icons by <a target="_blank" href="https://icons8.com">Icons8</a></span></footer>
 
 </body>
-
 
 
 </html>

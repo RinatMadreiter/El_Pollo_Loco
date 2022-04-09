@@ -19,7 +19,7 @@ class World {
     coinBar = new CoinBar();
     bottleBar = new BottleBar();
     endbossBar = new EndbossBar();
-    character = new Character(); 
+    character = new Character();
 
 
     /**
@@ -47,7 +47,7 @@ class World {
      * 2) variables for highscore calculation
      * 3) Highscore array for Player-Name & Highest Score
      */
-    
+
     currentScoreContainer = document.getElementById('currentScore');
     highestScore = document.getElementById('highestScore');
     player = document.getElementById('player');
@@ -114,10 +114,11 @@ class World {
         this.lost_sound.volume = 0.1;
     }
 
+
     /**
-     * @param {canvasHtmlElement} canvas HTML Canvas Element id='canvas'
-     * @param {*Instance} keyboard Instance from game.js
-     * @constructor
+     * @param {object} canvas HTML Canvas Element
+     * @param {instance} keyboard Instance from game.js
+     * @constructor of World
      */
     constructor(canvas, keyboard) {
         this.adjustVolumeOfSounds();
@@ -138,7 +139,16 @@ class World {
         this.slowerGameLogicIntervals200to1100ms();
     }
 
-    
+
+    /**
+     * Main Intervals:
+     * 1) Coins & Bottles
+     * 2) Check Hit: Chicken, TinyChickens, Endboss
+     * 3) checkIfCharacterIsVulnerable
+     * 4) Calc Highscore
+     * 5) Play Endbosssound
+     * 6) Check for end of game
+     */
     mainGameLogicInterval70ms() {
         setInterval(() => {
             this.checkCoins();
@@ -151,9 +161,9 @@ class World {
             this.playSoundIfNearEndboss();
             this.LoopBackgroundMusic();
             this.checkIfLostOrWon();
-        }, 70); 
+        }, 70);
     }
-    
+
 
     /**
      * check for end of game
@@ -164,12 +174,23 @@ class World {
     }
 
 
+    /**
+     * 3 Gamelogic intervals with different speed; 
+     * 1) ThrowObjects 200ms
+     * 2) Collisions 300ms
+     * 3) spawnTinyChickenIfEndbossIsAngry 1100ms
+     */
     slowerGameLogicIntervals200to1100ms() {
         setInterval(() => this.checkThrowObjects(), 200);
         setInterval(() => this.checkCollisions(), 300);
         setInterval(() => this.spawnTinyChickenIfEndbossIsAngry(), 1100);
     }
 
+
+    /**
+     * throw Bottles function
+     * playSounds, add bottle to throwableBottlesArray, splice afterwards and update bottlebar
+     */
     checkThrowObjects() {
         if (this.keyboard.D && this.amountOfBottlesToThrow > 0) {
             this.bottleThrow_sound.play();
@@ -177,15 +198,16 @@ class World {
             this.throwableBottlesArray.push(bottle);
             this.amountOfBottlesToThrow -= 1;
             this.bottleBar.amountOfBottles -= 1;
-            setTimeout(() => {
-                this.bottleSplash_sound.play();
-            }, 1000);
+            setTimeout(() => this.bottleSplash_sound.play(), 1000);
             setTimeout(() => this.throwableBottlesArray.splice(0, 1), 1300);
             this.bottleBar.updateBottleBar(this.bottleBar.amountOfBottles);
         }
     }
 
 
+    /**
+     * check collision with bottles, if colliding collect splice bottle & update bottle-bar
+     */
     checkBottles() {
         this.level.bottles.forEach((bottle, index) => { //es handelt sich hierbei um eine Anonyme funktion mit 2 Parametern
             if (this.character.isColliding(bottle)) {
@@ -199,6 +221,9 @@ class World {
     }
 
 
+    /**
+     * check if thrown bottles hit chicken with a nested foreachloop inside a foreachloop, if yes splice chicken 
+     */
     checkHitChicken() {
         this.level.enemies.forEach((enemy, index) => {
             this.throwableBottlesArray.forEach(bottle => {
@@ -213,6 +238,9 @@ class World {
     }
 
 
+    /**
+     * check if thrown bottle hits tinychicken with a nested foreachloop inside a foreachloop, if yes splice chicken 
+     */
     checkHitTinyChicken() {
         this.endbossTinyChicken.forEach((enemy, index) => {
             this.throwableBottlesArray.forEach(bottle => {
@@ -227,6 +255,9 @@ class World {
     }
 
 
+    /**
+     * check if thrown bottle hits endboss, if yes enboss.energy -= 5
+     */
     checkHitEndboss() {
         this.throwableBottlesArray.forEach((bottle) => {
             if (bottle.isColliding(this.endboss) && !this.endboss.endbossGettingHit) {
@@ -240,6 +271,9 @@ class World {
     }
 
 
+    /**
+     * spawn tinychicken if endboss being hit
+     */
     spawnEndbossTinyChicken() {
         if (!this.tinyChickenSpawned) {
             let tinyChicken = new EndbossTinyChicken();
@@ -249,6 +283,10 @@ class World {
         }
     }
 
+
+    /**
+     * spawn tinychicken if endboss.energy reaches 10
+     */
     spawnTinyChickenIfEndbossIsAngry() {
         if (this.endboss.energy == 10) {
             let tinyChicken = new EndbossTinyChicken();
@@ -257,6 +295,9 @@ class World {
     }
 
 
+    /**
+     * pool all character collisions functions & correctgroundposition
+     */
     checkCollisions() {
         this.checkChickenCollisions();
         this.checkEndbossCollisions();
@@ -264,6 +305,10 @@ class World {
         this.correctGroundPositionIfWrong();
     }
 
+
+    /**
+     * check if character is colliding with endboss, if yes adjust characters energy and energy-bar, play sound
+     */
     checkEndbossCollisions() {
         if (this.character.isColliding(this.endboss)) {
             this.character.hit();
@@ -273,12 +318,19 @@ class World {
     }
 
 
-
+    /**
+     * check if jumping on enemy
+     * @param {Array} enemy single enemy  array, part of the enemies array
+     * @returns if character is colliding with chicken, & is above Ground & character is falling
+     */
     characterAboveGround(enemy) {
         return this.character.isJumpingOnChicken(enemy) && this.character.isAboveGround() && enemy.energy != 0 && this.character.speedY < 0;
     }
 
 
+    /**
+     * check if colliding with chickens on ground or above
+     */
     checkChickenCollisions() {
         this.level.enemies.forEach((enemy, index) => {
             if (this.characterAboveGround(enemy)) {
@@ -295,18 +347,30 @@ class World {
         });
     }
 
+
+    /**
+     * correct character's ground position if wrong after jump on chicken
+     */
     correctGroundPositionIfWrong() {
         if (this.character.isUnderGround() && this.character.vulnerable && this.character.speedY < 0) {
             this.character.correctGroundPos();
         }
     }
 
+
+    /**
+     * helper function to prevent that character is getting hurt while jumping on chickens
+     */
     checkIfCharacterIsVulnerable() {
         if (!this.character.isAboveGround()) {
             this.character.vulnerable = true;
         }
     }
 
+
+    /**
+     * check if colliding with tinychickens on ground or above
+     */
     checkTinyChickenCollisions() {
         this.endbossTinyChicken.forEach((enemy, index) => {
             if (this.characterAboveGround(enemy)) {
@@ -324,6 +388,9 @@ class World {
     }
 
 
+    /**
+     * check collision with coins, if yes update coinbar, play sound and splice
+     */
     checkCoins() {
         this.level.coins.forEach((coin, index) => { //es handelt sich hierbei um eine Anonyme funktion mit 2 Parametern
             if (this.character.isColliding(coin)) {
@@ -336,20 +403,45 @@ class World {
     }
 
 
+    /**
+     * enable the character.class.js to have access to world.class.js
+     */
     setWorld() {
-        this.character.world = this; //Hier wird dem Character Objekt/Klasse Zugriff auf alles von World gegeben
+        this.character.world = this;
     }
 
 
-
-
-
+    /**
+     * draw everything to animate game,
+     */
     draw() {
         this.ctx.clearRect(0, 0, canvas.width, canvas.height); // Löscht die derzeitigen Bilder im Canvas sodass sie nicht dupliziert angezeigt werden 
-
         this.ctx.translate(this.camera_x, 0);
+        this.addAllMovableObjectsToMap();
+        this.addAllFixedObjectsToMap();
+        this.ctx.translate(this.camera_x, 0);
+        this.ctx.translate(-this.camera_x, 0);
+        let self = this;
+        this.repeatRequestAnimationFrame(self);
+    }
 
-        //-- Space for all movable Objects--
+
+    /**
+     * repeat draw function according to grapic prozessor/card to animate game
+     * @param {object} draw() function
+     */
+    repeatRequestAnimationFrame(self) {
+        requestAnimationFrame(function () { //diese Funktion wird ausgeführt sobald alles in der draw Funktion gezeichtnet wurde, asynchron wiederholt es so oft wie die Grafikkarte es hergibt
+            self.draw(); //hier funktioniert this nicht mehr, deswegen erstellen wir eine Variable self (2 zeilen drüber), welcher wir this zuweisen
+            // mit Hilfe von requestAnimationFrame wird draw() immer wieder aufgerufen (abhängig von der Grafikkarte)
+        });
+    }
+
+
+    /**
+     * pool all movableObjects for main @function draw() 
+     */
+    addAllMovableObjectsToMap() {
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.level.clouds);
         this.addToMap(this.character);
@@ -359,27 +451,25 @@ class World {
         this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.level.endboss);
         this.addObjectsToMap(this.endbossTinyChicken);
+    }
 
-        //--- Space for fixed Objects----
+
+    /**
+     * pool all fixedObjects for main @function draw() 
+     */
+    addAllFixedObjectsToMap() {
         this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.hitpointsBar);
         this.addToMap(this.bottleBar);
         this.addToMap(this.coinBar);
         this.drawBarAndPlaySoundIfNearEndboss();
-        // this.drawBarIfNearEndboss();
-
-        this.ctx.translate(this.camera_x, 0);
-
-        this.ctx.translate(-this.camera_x, 0);
-
-        // mit Hilfe von requestAnimationFrame wird draw() immer wieder aufgerufen (abhängig von der Grafikkarte)
-        let self = this;
-        requestAnimationFrame(function () { //diese Funktion wird ausgeführt sobald alles in der draw Funktion gezeichtnet wurde, asynchron wiederholt es so oft wie die Grafikkarte es hergibt
-            self.draw(); //hier funktioniert this nicht mehr, deswegen erstellen wir eine Variable self (2 zeilen drüber), welcher wir this zuweisen
-        });
     }
 
 
+    /**
+     * iterate throw given object-array for @function draw() with @function addTomap()
+     * @param {array} objects 
+     */
     addObjectsToMap(objects) { // ForEach schleife, welche 
         objects.forEach(object => {
             this.addToMap(object);
@@ -387,6 +477,10 @@ class World {
     }
 
 
+    /**
+     * add character to map depending on the direction for @function draw() 
+     * @param {*} movableObject 
+     */
     addToMap(movableObject) {
         if (movableObject.otherDirection) {
             this.flipImage(movableObject);
@@ -397,11 +491,14 @@ class World {
         if (movableObject.otherDirection) {
             this.flipImageBack(movableObject);
         }
-
         // movableObject.drawFrame(this.ctx); //function to draw a frame around objects
     }
 
 
+    /**
+     * flip image if character direction changes
+     * @param {array} movableObject @character
+     */
     flipImage(movableObject) {
         this.ctx.save();
         this.ctx.translate(movableObject.width, 0);
@@ -410,22 +507,30 @@ class World {
     }
 
 
+    /**
+     * flip image bacj if character direction changes
+     * @param {array} movableObject @ character
+     */
     flipImageBack(movableObject) {
         movableObject.x = movableObject.x * -1;
         this.ctx.restore();
     }
 
+
+    /**
+     * if character near endboss draw enboss-bar & play endboss sound
+     */
     drawBarAndPlaySoundIfNearEndboss() {
         if (this.character.x > 2000 && this.endboss.hadContactWithEndboss) {
-            this.drawBarIfNearEndboss();
+            this.addToMap(this.endbossBar);
+            this.playSoundIfNearEndboss();
         }
     }
 
-    drawBarIfNearEndboss() {
-        this.addToMap(this.endbossBar);
-        this.playSoundIfNearEndboss();
-    }
 
+    /**
+     * play sound if character near endboss
+     */
     playSoundIfNearEndboss() {
         if (this.character.x > 2000 && this.level.endboss[0].energy > 0) {
             this.endboss_sound.play();
@@ -435,15 +540,31 @@ class World {
         }
     }
 
-    //**Highscore related code */
-    //17 chicken, 100 life(-5 when hit), 10 coins, 17 bottles, endboss needs 10 hits
 
+    /** Highscore related code starts here:
+     * rest of Highscore related code you will find in @file: "js/game.js" at the end
+     * 
+     * 17 chicken, 100 life(-5 when hit), 10 coins, 17 bottles, endboss needs 10 hits
+     *
+     * How the highscore is being calculated:
+     * 5 points for each killed chicken 
+     * 5 points for each collected coin
+     * x points according to character.energy
+     * 100 points if endboss killed
+     * +50 extra points if character.energy = 100
+     *
+     * function to pool all highscore related functions
+     */
     calcCurrentHighscore() {
         this.updateVariablesForHighscore();
         this.multiplyAddVariables();
         this.renderCurrentScore();
     }
 
+
+    /**
+     * update all highscore related variables
+     */
     updateVariablesForHighscore() {
         this.collectedCoins = this.coinBar.amountOfCoins;
         this.killedChicken = this.amountOfBrownChickensForHighscore - this.level.enemies.length;
@@ -451,6 +572,10 @@ class World {
         this.endbossHitpoints = this.endboss.energy;
     }
 
+
+    /**
+     * main highscore calc function
+     */
     multiplyAddVariables() {
         let chikenAndCoins = (this.killedChicken + this.collectedCoins) * 5;
         let allHitpoints = (100 - this.endbossHitpoints) + this.characterHitpoints;
@@ -460,10 +585,21 @@ class World {
         this.currentScore = chikenAndCoins + allHitpoints;
     }
 
+
+    /**
+     * render highscore in HTML
+     */
     renderCurrentScore() {
         this.currentScoreContainer.innerHTML = this.currentScore;
     }
 
+
+    /**
+     * end of game related code starts here
+     * 
+     * if game won show game end screen and play win sound
+     * if new highscore display highscsore overlay and input field for player
+     */
     gameWon() {
         if (this.level.endboss[0].energy == 0 && this.endGameStatus == false) {
             this.endbossTinyChicken = [];
@@ -477,10 +613,13 @@ class World {
                 this.displayHighscoreInput();
             }, 2000);
 
-
         }
     }
 
+
+    /**
+     * hide canvas display game end HTML elements
+     */
     hideCanvasDisplayGameEnd() {
         document.getElementById('canvas').classList.add('d-none');
         document.getElementById('fullScreen').classList.add('d-none');
@@ -488,8 +627,9 @@ class World {
     }
 
 
-
-
+    /**
+     * if gameLost show endscreen & play lost sound
+     */
     gameLost() {
         if (this.character.energy == 0 && this.endGameStatus == false) {
             setTimeout(() => {
@@ -504,6 +644,9 @@ class World {
     }
 
 
+    /**
+     * mute all game sounds for end of game
+     */
     muteAllNotEndgameSounds() {
         this.hurt_sound.volume = 0;
         this.collectBottle_sound.volume = 0;
@@ -514,12 +657,18 @@ class World {
     }
 
 
-
+    /**
+     * 
+     * @returns check if currentScore is new highscore for @function gameWon()
+     */
     NewHighscore() {
         return this.currentScore > Number(this.highestScore.innerHTML);
     }
 
 
+    /**
+     * display HTML highscoreInput used in @function gameWon()
+     */
     displayHighscoreInput() {
         if (this.NewHighscore()) {
             this.hiddenHighscoreContainer.classList.remove('d-none');
@@ -528,14 +677,14 @@ class World {
         }
     }
 
+
+    /**
+     * change restart button for endscreen
+     */
     restyleRestartButtonForEndscreen() {
         document.getElementById('restartBtn').style.bottom = '-446px';
         document.getElementById('restartBtn').style.left = '333px';
         document.getElementById('restartBtn').style.width = '68px';
     }
-
-
-
-
 
 }

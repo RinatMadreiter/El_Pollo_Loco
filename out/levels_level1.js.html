@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: levels/level1.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: levels/level1.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * define level1 for new @instance of "Level" used in @function "initLevel1()"
+ * 
+ */
+let level1;
+let startSound = new Audio('audio/start.mp3');
+startSound.volume = 0.2;
+
+
+/**
+ * init world and start game when clicked on "Click here to start the Game " Button at start screen
+ */
+function startGame() {
+    startSound.play();
+    initLevel1();
+    init();
+    hideStartScreenDisplayGameContent();
+}
+
+
+/**
+ * initialize level 1 with a new @instance of "Level" class with these parametes in the set order:
+ *  @param {array} enemies array filled with all enemies
+ * @param {array} endboss array filled with endboss
+ * @param {array} clouds array filled with all clouds
+ * @param {array} backgroundObjects array filled with all backgroundObjects
+ * @param {array} coins array filled with all coins
+ * @param {array} bottles array filled with all bottles
+ */
+function initLevel1() {
+
+    level1 = new Level(
+
+        [
+            new Chicken(),
+            new Chicken(),
+            new Chicken(),
+            new Chicken(),
+            new Chicken(),
+            new Chicken(),
+            new Chicken()
+        ],
+        [
+            new Endboss()
+        ],
+        [
+            new Cloud(),
+            new Cloud(),
+            new Cloud(),
+            new Cloud(),
+            new Cloud(),
+            new Cloud(),
+            new Cloud()
+        ],
+        [
+            new BackgroundObject('img/5.Fondo/Capas/3.Fondo3/2.png', -720),
+            new BackgroundObject('img/5.Fondo/Capas/2.Fondo2/2.png', -720),
+            new BackgroundObject('img/5.Fondo/Capas/1.suelo-fondo1/2.png', -720),
+            new BackgroundObject('img/5.Fondo/Capas/3.Fondo3/1.png', 0),
+            new BackgroundObject('img/5.Fondo/Capas/2.Fondo2/1.png', 0),
+            new BackgroundObject('img/5.Fondo/Capas/1.suelo-fondo1/1.png', 0),
+            new BackgroundObject('img/5.Fondo/Capas/3.Fondo3/2.png', 720),
+            new BackgroundObject('img/5.Fondo/Capas/2.Fondo2/2.png', 720),
+            new BackgroundObject('img/5.Fondo/Capas/1.suelo-fondo1/2.png', 720),
+
+            new BackgroundObject('img/5.Fondo/Capas/3.Fondo3/1.png', 1440),
+            new BackgroundObject('img/5.Fondo/Capas/2.Fondo2/1.png', 1440),
+            new BackgroundObject('img/5.Fondo/Capas/1.suelo-fondo1/1.png', 1440),
+            new BackgroundObject('img/5.Fondo/Capas/3.Fondo3/2.png', 2160),
+            new BackgroundObject('img/5.Fondo/Capas/2.Fondo2/2.png', 2160),
+            new BackgroundObject('img/5.Fondo/Capas/1.suelo-fondo1/2.png', 2160),
+
+            new BackgroundObject('img/5.Fondo/Capas/3.Fondo3/1.png', 2880),
+            new BackgroundObject('img/5.Fondo/Capas/2.Fondo2/1.png', 2880),
+            new BackgroundObject('img/5.Fondo/Capas/1.suelo-fondo1/1.png', 2880),
+            new BackgroundObject('img/5.Fondo/Capas/3.Fondo3/2.png', 3600),
+            new BackgroundObject('img/5.Fondo/Capas/2.Fondo2/2.png', 3600),
+            new BackgroundObject('img/5.Fondo/Capas/1.suelo-fondo1/2.png', 3600)
+        ],
+        [
+            new Coin(),
+            new Coin(),
+            new Coin(),
+            new Coin(),
+            new Coin(),
+            new Coin(),
+            new Coin(),
+            new Coin(),
+            new Coin(),
+            new Coin()
+
+        ],
+        [
+            new Bottle(),
+            new Bottle(),
+            new Bottle(),
+            new Bottle(),
+            new Bottle(),
+            new Bottle(),
+            new Bottle(),
+            new Bottle(),
+            new Bottle(),
+            new Bottle(),
+            new Bottle(),
+            new Bottle(),
+            new Bottle(),
+            new Bottle(),
+            new Bottle(),
+            new Bottle(),
+            new Bottle()
+        ]
+    );
+
+}
+
+
+/**
+ * hide startscreen and display game
+ */
+function hideStartScreenDisplayGameContent() {
+    document.getElementById('startScreen').classList.add('d-none');
+    document.getElementById('gameContent').classList.remove('d-none');
+}
+
+
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="BackgroundObject.html">BackgroundObject</a></li><li><a href="Bottle.html">Bottle</a></li><li><a href="BottleBar.html">BottleBar</a></li><li><a href="Character.html">Character</a></li><li><a href="Chicken.html">Chicken</a></li><li><a href="Cloud.html">Cloud</a></li><li><a href="Coin.html">Coin</a></li><li><a href="CoinBar.html">CoinBar</a></li><li><a href="Endboss.html">Endboss</a></li><li><a href="EndbossBar.html">EndbossBar</a></li><li><a href="EndbossTinyChicken.html">EndbossTinyChicken</a></li><li><a href="HitpointsBar.html">HitpointsBar</a></li><li><a href="Level.html">Level</a></li><li><a href="of%2520World.html">of World</a></li><li><a href="ThrowableObject.html">ThrowableObject</a></li></ul><h3>Global</h3><ul><li><a href="global.html#canvas">canvas</a></li><li><a href="global.html#hideHighscoreInput">hideHighscoreInput</a></li><li><a href="global.html#hideStartScreenDisplayGameContent">hideStartScreenDisplayGameContent</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initLevel1">initLevel1</a></li><li><a href="global.html#level1">level1</a></li><li><a href="global.html#loadScoreLocalStorage">loadScoreLocalStorage</a></li><li><a href="global.html#openFullscreen">openFullscreen</a></li><li><a href="global.html#reloadPage">reloadPage</a></li><li><a href="global.html#renderLoadOldHighscore">renderLoadOldHighscore</a></li><li><a href="global.html#renderOldHighscore">renderOldHighscore</a></li><li><a href="global.html#saveHighscore">saveHighscore</a></li><li><a href="global.html#saveScoreLocalStorage">saveScoreLocalStorage</a></li><li><a href="global.html#startGame">startGame</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Sat Apr 09 2022 16:18:29 GMT+0200 (Mitteleuropäische Sommerzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

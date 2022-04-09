@@ -1,4 +1,8 @@
 class EndbossTinyChicken extends MovableObject {
+
+    /**
+     * define EndbossTinyChicken variables
+     */
     x = world.level.endboss[0].x + 100;
     width = 60;
     height = 50;
@@ -8,6 +12,10 @@ class EndbossTinyChicken extends MovableObject {
     energy = 4;
 
 
+    /**
+     * define EndbossTinyChicken img arrays:
+     * walking, dead
+     */
     IMAGES_WALKING = [
         'img/basic_chicken_enemies/tiny_chicken/walking1.png',
         'img/basic_chicken_enemies/tiny_chicken/walking2.png',
@@ -16,6 +24,10 @@ class EndbossTinyChicken extends MovableObject {
 
     IMAGE_DEAD = ['img/basic_chicken_enemies/tiny_chicken/dead.png'];
 
+
+    /**
+     * load images, animate and set random speed
+     */
     constructor() {
         super(); //benötigt um auf Methoden der höheren Classes zugreifen zu können
         this.loadImage(this.IMAGES_WALKING[0]);
@@ -26,13 +38,16 @@ class EndbossTinyChicken extends MovableObject {
 
     }
 
+
+    /**
+     * animate tinychikens
+     */
     animate() {
         let moveInterval = setInterval(() => {
             if (!this.isDead()) {
                 this.otherDirection = false;
                 this.moveLeft();
             } else {
-                //ToDo
                 clearInterval(moveInterval);
             }
         }, 17);
@@ -44,7 +59,6 @@ class EndbossTinyChicken extends MovableObject {
                     clearInterval(playAnimationInterval);
                 }, this.IMAGE_DEAD.length * this.intervalAnimation);
             } else {
-                //ToDo
                 this.playAnimation(this.IMAGES_WALKING);
             }
         }, this.intervalAnimation); //200ms

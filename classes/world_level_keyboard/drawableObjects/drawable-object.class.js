@@ -1,4 +1,7 @@
 class DrawableObject {
+    /**
+     * define DrawableObject variables
+     */
     img;
     imageCache = {};
     currentImage = 0;
@@ -17,6 +20,11 @@ class DrawableObject {
         this.img.src = path;
     }
 
+
+    /**
+     * drawFrame for testing if needed currently not used
+     * @param {canvas} ctx canvas HTML element
+     */
     drawFrame(ctx) {
         if (this instanceof Character || this instanceof Chicken || this instanceof Endboss || this instanceof Coin || this instanceof EndbossTinyChicken) { //wird nur bei Character, Chicken und Endboss angezeigt
             ctx.beginPath();
@@ -27,8 +35,9 @@ class DrawableObject {
         }
     }
 
-      /**
-     * 
+
+    /**
+     * loadImages from given IMG-array 
      * @param {Array} arr  ['img/image1.png, 'img/image2.png', ...]
      */
        loadImages(arr) {
@@ -39,6 +48,11 @@ class DrawableObject {
         });
     }
 
+
+    /**
+     * draw img on canvas used in @function addToMap in @file "classes/world_level_keyboard/world.class.js"
+     * @param {canvas} ctx 
+     */
     draw(ctx) {
         try {
             ctx.drawImage(this.img, this.x, this.y, this.width, this.height); // eine vorgegebene Funktion welche Bilder auf das Canvas zeichnet / circa 25 mal pro Sekunde ausgeführt
@@ -47,6 +61,5 @@ class DrawableObject {
         console.log('could not load image ', this.img.src);  
         }
     }
-
 
 }

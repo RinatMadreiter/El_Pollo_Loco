@@ -16,7 +16,7 @@ class DrawableObject {
      * @param {Pointer}  path of the imgs
      */
     loadImage(path) {
-        this.img = new Image(); //this.img = document.getElementById('image') <img id="image"> /das Objekt Image ist bereits vorgegeben in JS
+        this.img = new Image();
         this.img.src = path;
     }
 
@@ -38,9 +38,9 @@ class DrawableObject {
 
     /**
      * loadImages from given IMG-array 
-     * @param {Array} arr  ['img/image1.png, 'img/image2.png', ...]
+     * @param {Array} arr of imgs
      */
-       loadImages(arr) {
+    loadImages(arr) {
         arr.forEach((path) => {
             let img = new Image();
             img.src = path;
@@ -57,8 +57,8 @@ class DrawableObject {
         try {
             ctx.drawImage(this.img, this.x, this.y, this.width, this.height); // eine vorgegebene Funktion welche Bilder auf das Canvas zeichnet / circa 25 mal pro Sekunde ausgeführt
         } catch (error) {
-        console.warn('Error loading Img ', error);
-        console.log('could not load image ', this.img.src);  
+            console.warn('Error loading Img ', error);
+            console.log('could not load image ', this.img.src);
         }
     }
 

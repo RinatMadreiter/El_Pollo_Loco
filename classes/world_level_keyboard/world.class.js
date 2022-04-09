@@ -118,12 +118,11 @@ class World {
     /**
      * @param {object} canvas HTML Canvas Element
      * @param {instance} keyboard Instance from game.js
-     * @constructor of World
      */
     constructor(canvas, keyboard) {
         this.adjustVolumeOfSounds();
         this.ctx = canvas.getContext('2d'); // ermöglich dem Canvas die Bilder im 2D Format hinzuzufügen, in der 'ctx' variable gespeichert
-        this.canvas = canvas; //in das globale Canvas von World.class wird der Parameter Canvas gespeichert, für die untere draw methode,
+        this.canvas = canvas; //in das globale Canvas von world wird der Parameter Canvas gespeichert, für die untere draw methode,
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();

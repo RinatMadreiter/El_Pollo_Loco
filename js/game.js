@@ -4,6 +4,8 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
+let restartSound = new Audio('audio/start.mp3');
+restartSound.volume = 0.2;
 
 
 /**
@@ -89,7 +91,10 @@ function openFullscreen() {
  * reload page if clicked on button with @id "restartBtn"
  */
 function reloadPage() {
-    location.reload();
+    restartSound.play();
+    setTimeout(() => {
+        location.reload();
+    }, 600);
 }
 
 /**

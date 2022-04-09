@@ -75,7 +75,7 @@ canvas {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-image: url('img/9.Intro _ Outro Image/Start Screen/Opción 1.png');
+    background-image: url('1');
     background-repeat: no-repeat;
     background-size: contain;
     background-attachment: fixed;
@@ -215,7 +215,7 @@ footer {
 }
 
 .hidden-highscore-container {
-    background-image: url('img/9.Intro _ Outro Image/Start Screen/Opción 1.png');
+    background-image: url('1');
     opacity: 1;
     background-size: cover;
     background-repeat: no-repeat;

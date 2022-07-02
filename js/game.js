@@ -169,8 +169,8 @@ function renderLoadOldHighscore() {
  */
 function renderOldHighscore() {
     world.highestScore.innerHTML = world.savedHighscore[0];
-    world.player.innerHTML = world.savedPlayerName[0];
+    world.player.innerHTML = world.savedPlayerName[0]; 
 }
 
-console.log('the above waring message is desplayed by default on all GitHub Pages websites, for more information click at the link below (from github)');
-console.log('https://github.blog/changelog/2021-04-27-github-pages-permissions-policy-interest-cohort-header-added-to-all-pages-sites/');
+console.info('the above waring message is displayed by default on all GitHub Pages websites, for more information click at the link below (from github)');
+console.info('https://github.blog/changelog/2021-04-27-github-pages-permissions-policy-interest-cohort-header-added-to-all-pages-sites/');

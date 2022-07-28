@@ -1,3 +1,9 @@
+@font-face {
+    font-family: 'la_tequila';
+    src: url('./fonts/la_tequila/la_tequila.ttf') format('truetype');
+    /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
+}
+
 body {
     display: flex;
     align-items: center;
@@ -7,7 +13,7 @@ body {
     background-size: cover;
     margin: 0;
     height: 100vh;
-    font-family: 'Roboto Slab', serif;
+    font-family: 'Roboto Slab', Arial, Helvetica, sans-serif;
 }
 
 p {
@@ -19,6 +25,19 @@ canvas {
     background-size: cover;
     background-color: lightblue;
     border-radius: 8px;
+    display: block;
+}
+
+@media only screen and (max-width: 720px) {
+    canvas {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-height: 480px) {
+    canvas {
+        height: 100vh;
+    }
 }
 
 .gameScreen {
@@ -26,18 +45,25 @@ canvas {
 }
 
 .main-highscore-container {
-    /* display: none; */
     width: 230px;
     height: 480px;
     background-color: white;
-    margin-top: 128px;
+    margin-top: calc(100px + 10vh);
     text-align: center;
     border-radius: 8px;
 }
 
+
+
 .main-highscore-container h1 {
     margin-bottom: 0;
     margin-block-end: 0;
+    font-family: 'la_tequila', Arial, Helvetica, sans-serif;
+
+}
+
+h2 {
+    font-family: 'la_tequila', Arial, Helvetica, sans-serif;
 }
 
 .game-content {
@@ -53,10 +79,11 @@ canvas {
 .gameScreen h1 {
     color: rgb(75, 5, 5);
     text-align: center;
-    font-size: xxx-large;
+    font-size: 48px;
+    font-family: 'la_tequila', Arial, Helvetica, sans-serif;
     font-weight: 700;
-    margin-left: 200px;
-
+    margin-block-end: 5vh;
+    margin-block-start: 5vh;
 }
 
 .highscore-container {
@@ -96,6 +123,8 @@ canvas {
     justify-content: center;
 }
 
+
+
 .game-info button {
     margin: 50px;
     border-radius: 8px;
@@ -116,7 +145,6 @@ canvas {
 }
 
 .game-info button:active {
-
     background-color: #ff9600;
 }
 
@@ -129,6 +157,8 @@ canvas {
     animation-iteration-count: infinite;
     animation-direction: alternate;
 }
+
+
 
 .game-info button span:first-child {
     font-size: 25px;
@@ -158,6 +188,10 @@ canvas {
         margin-left: 20px;
     }
 }
+
+
+
+
 
 .keyboard-manual {
     width: 60vw;
@@ -290,4 +324,71 @@ footer {
 
 .restart-btn:hover {
     transform: scale(1.2, 1.2);
+}
+
+@media (max-width: 1000px) {
+    .hide-mobile {
+        display: none;
+    }
+}
+
+
+@media only screen and (max-width: 1000px) {
+    .game-info {
+        width: 100%;
+        margin-top: 10vh;
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 10vh;
+    }
+
+    p {
+        text-align: center;
+    }
+
+    .game-info button {
+        justify-content: center;
+    }
+
+    footer {
+        font-size: 8px;
+        bottom: 0;
+    }
+
+    .start-screen {
+        justify-content: space-around;
+        background-position: 50% 30%;
+    }
+
+    .keyboard-manual {
+        width: 100%;
+    }
+
+    .keyboard-manual span {
+        width: 20vw;
+    }
+
+    .keyboard-manual img {
+        width: 25px;
+    }
+}
+
+@media only screen and (orientation: landscape) {
+    .game-info {
+        margin-top: 0;
+    }
+    .game-info button {
+        margin: 5px;
+    }
+    .game-info h2 {
+        margin-bottom: 0;
+    }
+    .endgame-screen img {
+        width: 100%;
+    }
+    body {
+        overflow-y: hidden;
+    }
 }

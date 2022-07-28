@@ -37,6 +37,7 @@
     <!-- all non classes js files -->
     <script src="./levels/level1.js"></script>
     <script src="./js/game.js"></script>
+    
     <!--  all used classes must be loaded before game.js file to be able to access it -->
 
     <!-- Font -->
@@ -58,8 +59,8 @@
             <p>of tabasco to defeat the crazy chicken.</p>
             <br>
             <p>Be careful it is not a normal chicken.</p>
-            <button onclick="startGame(); renderLoadOldHighscore()"> <span>&rarr;</span> Click here to start the Game
-                <span>&larr;</span>
+            <button onclick="startGame(); renderLoadOldHighscore()"> <span class="hide-mobile">&rarr;</span> Click here to start the Game
+                <span class="hide-mobile">&larr;</span>
             </button>
         </div>
         <div class="keyboard-manual">
@@ -78,18 +79,18 @@
     <!-- Game-Content -->
     <div class="game-content d-none" id="gameContent">
         <div class="gameScreen">
-            <h1>El Pollo Loco</h1>
+            <h1 class="hide-mobile">El Pollo Loco</h1>
             <div class="canvas-container"><canvas id="canvas" width="720px" height="480px"></canvas>
-                <img class="fullscreen-btn" id="fullScreen" onclick="openFullscreen()"
+                <img class="fullscreen-btn hide-mobile" id="fullScreen" onclick="openFullscreen()"
                     src="img/keyboard_manual/fullscreen.png">
-                <img src="img/keyboard_manual/restart.png" class="restart-btn" id="restartBtn" onclick="reloadPage()">
+                <img src="img/keyboard_manual/restart.png" class="restart-btn " id="restartBtn" onclick="reloadPage()">
             </div>
             <div class="endgame-screen d-none" id="endGameContainer" width="720px" height="480px">
                 <img id="gameWonIMG" class="d-none" src="img/intro_outro/gameover/gameOver.png">
                 <img id="gameLostIMG" class="d-none" src="img/intro_outro/gameover/lost.png">
             </div>
         </div>
-        <div class="main-highscore-container">
+        <div class="main-highscore-container hide-mobile">
             <h1>High Score!</h1>
             <div id="allHighscores" class="listed-highscores">
                 <div class="highest-score">

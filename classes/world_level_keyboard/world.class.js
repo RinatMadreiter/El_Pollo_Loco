@@ -681,7 +681,7 @@ class World {
      * change restart button for endscreen
      */
     restyleRestartButtonForEndscreen() {
-        document.getElementById('restartBtn').style.bottom = '-446px';
+        document.getElementById('restartBtn').style.bottom = '-100px';
         document.getElementById('restartBtn').style.left = '333px';
         document.getElementById('restartBtn').style.width = '68px';
     }
